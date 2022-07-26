@@ -8,6 +8,7 @@ public class RegistrationService implements RegisterService {
     @Override
     public void register(User user) {
         validatorInitalizer(user);
+        System.out.println("check");
     }
 
     @Override
