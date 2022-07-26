@@ -3,13 +3,47 @@ package com.zak.cruise.entity;
 public class User {
     private String name;
     private String surname;
+    private String passowrd;
+    private String repeatPassword;
     private String email;
     private String phoneNumber;
     private String country;
     private String city;
     private String address;
     private String zipCode;
-    private String role;
+    private Roles role;
+    private String login;
+
+    public User(String name, String login,  String surname, String passowrd, String repeatPassword, String email, String phoneNumber, String country, String city, String address, String zipCode, Roles role) {
+        this.name = name;
+        this.login = login;
+        this.surname = surname;
+        this.passowrd = passowrd;
+        this.repeatPassword = repeatPassword;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.role = role;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
 
     public String getName() {
         return name;
@@ -75,11 +109,19 @@ public class User {
         this.zipCode = zipCode;
     }
 
-    public String getRole() {
-        return role;
+    public String getPassowrd() {
+        return passowrd;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPassowrd(String passowrd) {
+        this.passowrd = passowrd;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }
