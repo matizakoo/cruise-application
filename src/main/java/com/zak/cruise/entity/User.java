@@ -28,6 +28,7 @@ public class User {
         this.zipCode = zipCode;
         this.role = role;
     }
+    public User(){}
 
     public String getLogin() {
         return login;
