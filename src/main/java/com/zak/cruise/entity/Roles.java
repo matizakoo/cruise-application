@@ -1,5 +1,6 @@
 package com.zak.cruise.entity;
 
+
 public class Roles {
     private String role;
 

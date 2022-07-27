@@ -1,5 +1,6 @@
 package com.zak.cruise.service.validation;
 
+import com.zak.cruise.entity.User;
 import com.zak.cruise.service.Exception.*;
 import org.springframework.jmx.export.metadata.ManagedAttribute;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator implements ValidationService{
+    public void validatorInitalizer(User user) {
+        UserValidator userValidator = new UserValidator();
+        userValidator.checkName(user.getName());
+        userValidator.checkSurname(user.getSurname());
+        userValidator.checkPassowrd(user.getPassowrd(), user.getRepeatPassword());
+        userValidator.checkEmail(user.getEmail());
+        userValidator.checkLogin(user.getLogin());
+        userValidator.checkPhoneNumber(user.getPhoneNumber());
+        userValidator.checkZipCodeFormat(user.getZipCode());
+        userValidator.checkCountry(user.getCountry());
+        userValidator.checkCity(user.getCity());
+    }
     Regex regex;
     Pattern pattern;
     Matcher matcher;
