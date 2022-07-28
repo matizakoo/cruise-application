@@ -58,6 +58,10 @@ public class User {
     @NotNull
     private String login;
     //the role is first by default (1 - guest, 2 - moderator, 3 - admin)
+
+    public User() {
+    }
+
     public User(String name, String surname, String email, String phoneNumber,
                 String country, String city, String address, String zipCode,
                 String documentId, String password, String login) {

@@ -1,10 +1,15 @@
 package com.zak.cruise.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.stereotype.Controller;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
+@Controller
+@Getter
+@Setter
 public class UserDTO {
     @NotBlank(message = "Enter your name")
     private String name;

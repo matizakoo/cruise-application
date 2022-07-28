@@ -24,14 +24,13 @@ public class CruiseApplication {
 	public BCryptPasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-
-	@Bean
-	CommandLineRunner commandLineRunner(TempRepository tempRepository){
-		return args -> {
-			TempUser tempUser = new TempUser("czy dziala");
-			Logger logger = LoggerFactory.getLogger("log to");
-			logger.info("git");
-			tempRepository.save(tempUser);
-		};
-	}
+//	@Bean
+//	CommandLineRunner commandLineRunner(TempRepository tempRepository){
+//		return args -> {
+//			TempUser tempUser = new TempUser("czy dziala");
+//			Logger logger = LoggerFactory.getLogger("log to");
+//			logger.info("git");
+//			tempRepository.save(tempUser);
+//		};
+//	}
 }
