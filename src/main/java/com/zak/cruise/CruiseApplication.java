@@ -28,7 +28,7 @@ public class CruiseApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(TempRepository tempRepository){
 		return args -> {
-			TempUser tempUser = new TempUser("Matixon");
+			TempUser tempUser = new TempUser("czy dziala");
 			Logger logger = LoggerFactory.getLogger("log to");
 			logger.info("git");
 			tempRepository.save(tempUser);

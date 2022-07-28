@@ -12,6 +12,4 @@ import javax.transaction.Transactional;
 public class TempUserService {
     @Autowired
     TempRepository tempRepository;
-
-
 }
