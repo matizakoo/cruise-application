@@ -8,15 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -38,13 +38,18 @@ public class AccountController {
     }
 
     @GetMapping("/register")
-    public String register(@ModelAttribute UserDTO userDTO, Model model ){
+    public String register(@ModelAttribute UserDTO userDTO, Model model){
         model.addAttribute("userDTO", userDTO);
-        return "register";
+        Logger logger = LoggerFactory.getLogger("Connects with /register");
+        logger.info("connected with /register");
+        return "register.html";
     }
 
+//    @PostMapping("/register")
     @PostMapping("/register")
     public String save(@Valid UserDTO userDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        Logger logger = LoggerFactory.getLogger("Connects with /register");
+        logger.info("connected with /register xxx");
         UserValidator userValidator = new UserValidator();
         //check if email already exists
 //        if(userService.userExists(userDTO.getEmail())){
@@ -53,15 +58,16 @@ public class AccountController {
 //        }
 
         //check if password is valid
-        if(userValidator.validatePassword(userDTO.getPassword())){
-                bindingResult.addError(new FieldError("userDTO", "password",
-                        "Password is incorrect"));
-        }
+//        if(userValidator.validatePassword(userDTO.getPassword())){
+//                bindingResult.addError(new FieldError("userDTO", "password",
+//                        "Password is incorrect"));
+//        }
 
         if(bindingResult.hasErrors()){
-            return "Register failed";
+            return "register";
         }
         redirectAttributes.addFlashAttribute("message", "Succes!");
+        logger.info("Registered!!!");
         userService.register(userDTO);
         return "redirect:/login";
     }

@@ -34,7 +34,24 @@ public class UserDTO {
     private String zipCode;
     @NotBlank(message = "Enter your login")
     private String login;
-
+    private String formError;
+    private String documentId;
     public UserDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", login='" + login + '\'' +
+                '}';
     }
 }

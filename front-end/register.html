@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="index.html" class="home">
+                HOME
+            </a>
+        </div>
+        <div class="content">
+            <div class="loginCenter">
+                Register!
+            </div>
+            <form method="post" th:action="@{/register}" th:object="${userDTO}" th:errorclass="is-valid">
+                <div class="inputValues">
+                    login
+                </div>
+                <input type="text" name="login" th:value="*{login}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    password
+                </div>
+                <input type="password" name="password" th:value="*{password}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    name
+                </div>
+                <input type="text"  name="name" th:value="*{name}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    surname
+                </div>
+                <input type="text" name="surname" th:value="*{surname}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    email
+                </div>
+                <input type="text" name="email" th:value="*{email}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    phoneNumber
+                </div>
+                <input type="text" name="phoneNumber" th:value="*{phoneNumber}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    country
+                </div>
+                <input type="text" name="country" th:value="*{country}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    city
+                </div>
+                <input type="text" name="city" th:value="*{city}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    address
+                </div>
+                <input type="text" name="address" th:value="*{address}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    zipCode
+                </div>
+                <input type="text" name="zipCode" th:value="*{zipCode}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="invalidFeedback"></div>
+
+                <div class="inputValues">
+                    documentId
+                </div>
+                <input type="text" name="documentId" th:value="*{documentId}" th:errorclass="is-valid">
+                <div th:if="${#fields.hasErrors('documentId')}" th:errors="*{documentId}" class="invalidFeedback"></div>
+
+                <input type="submit" style="width: 50%;margin-left:auto;margin-right:auto;">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

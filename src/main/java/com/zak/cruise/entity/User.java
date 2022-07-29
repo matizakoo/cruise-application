@@ -46,6 +46,7 @@ public class User {
     private String zipCode;
     @Column(name = "documentId")
     @NotNull
+    @Value("xxxxx")
     private String documentId;
     @Column(name = "role_idrole")
     @NotNull
