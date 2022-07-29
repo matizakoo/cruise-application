@@ -46,10 +46,8 @@ public class User {
     private String zipCode;
     @Column(name = "documentId")
     @NotNull
-    @Value("xxxxx")
     private String documentId;
     @Column(name = "role_idrole")
-    @NotNull
     @Value("1")
     private Long role; //TODO
     @Column(name = "password")
@@ -63,9 +61,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, String surname, String email, String phoneNumber,
-                String country, String city, String address, String zipCode,
-                String documentId, String password, String login) {
+    public User(Long id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId,Long role , String password, String login) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -75,6 +72,7 @@ public class User {
         this.address = address;
         this.zipCode = zipCode;
         this.documentId = documentId;
+        this.role = role;
         this.password = password;
         this.login = login;
     }

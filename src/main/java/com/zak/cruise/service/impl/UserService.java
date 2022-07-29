@@ -4,6 +4,8 @@ import com.zak.cruise.dto.UserDTO;
 import com.zak.cruise.entity.User;
 import com.zak.cruise.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,8 @@ public class UserService {
         userDTO.setPassword(newPassword);
         User user = new User();
         modelMapper.map(userDTO, user);
+        Logger logger = LoggerFactory.getLogger("Connects with /register");
+        logger.info("Success");
         return save(user);
     }
 }

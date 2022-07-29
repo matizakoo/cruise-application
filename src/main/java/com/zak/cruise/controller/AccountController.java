@@ -42,32 +42,48 @@ public class AccountController {
         model.addAttribute("userDTO", userDTO);
         Logger logger = LoggerFactory.getLogger("Connects with /register");
         logger.info("connected with /register");
-        return "register.html";
+        return "register";
     }
 
 //    @PostMapping("/register")
     @PostMapping("/register")
     public String save(@Valid UserDTO userDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         Logger logger = LoggerFactory.getLogger("Connects with /register");
-        logger.info("connected with /register xxx");
+        logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
-        //check if email already exists
+//        check if email already exists
 //        if(userService.userExists(userDTO.getEmail())){
 //            bindingResult.addError(new FieldError("userDTO", "email",
 //                    "User already exist"));
 //        }
 
-        //check if password is valid
-//        if(userValidator.validatePassword(userDTO.getPassword())){
-//                bindingResult.addError(new FieldError("userDTO", "password",
-//                        "Password is incorrect"));
-//        }
+
+
+
+
+
+//        check if password is valid SUCCESS!!:)
+        if(userValidator.validatePassword(userDTO.getPassword())){
+                bindingResult.addError(new FieldError("userDTO", "password",
+                        "Invalid password"));
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         if(bindingResult.hasErrors()){
+            logger.info("Registering faild ");
             return "register";
         }
         redirectAttributes.addFlashAttribute("message", "Succes!");
-        logger.info("Registered!!!");
         userService.register(userDTO);
         return "redirect:/login";
     }

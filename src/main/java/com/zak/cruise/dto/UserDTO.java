@@ -16,7 +16,7 @@ public class UserDTO {
     @NotBlank(message = "Enter your surname")
     private String surname;
     @NotBlank(message = "Enter your password")
-    @Length(min = 8, max = 20, message = "Password must be valid and at least 8 and max 20 chars")
+//    @Length(min = 8, max = 20, message = "Password must be valid and at least 8 and max 20 chars")
     private String password;
     @NotBlank(message = "Enter your email")
     @Email(message = "Enter valid email")
@@ -36,6 +36,7 @@ public class UserDTO {
     private String login;
     private String formError;
     private String documentId;
+    private Long role = Long.valueOf(1);
     public UserDTO() {
     }
 
@@ -44,7 +45,6 @@ public class UserDTO {
         return "UserDTO{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", country='" + country + '\'' +
@@ -52,6 +52,8 @@ public class UserDTO {
                 ", address='" + address + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", login='" + login + '\'' +
+                ", formError='" + formError + '\'' +
+                ", documentId='" + documentId + '\'' +
                 '}';
     }
 }
