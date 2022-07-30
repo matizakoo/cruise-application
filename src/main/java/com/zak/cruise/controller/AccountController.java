@@ -57,10 +57,13 @@ public class AccountController {
         logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
 
-        if(!userValidator.checkLogin(userDTO.getLogin())){
+        if(userRepository.findByLogin(userDTO.getLogin()) != 0 || !userValidator.checkLogin(userDTO.getLogin())){
             logger.info("logger faild login " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "login",
-                    "Invalid login"));
+            if(!userValidator.checkLogin(userDTO.getLogin())){
+                bindingResult.addError(new FieldError("userDTO", "login", "Invalid login"));
+            }else {
+                bindingResult.addError(new FieldError("userDTO", "login", "Login already exists"));
+            }
         }
 
         //check if password is valid SUCCESS!!:)
@@ -81,10 +84,9 @@ public class AccountController {
             bindingResult.addError(new FieldError("userDTO", "surname",
                     "Invalid surname"));
         }
-        if(userRepository.findByEmail(userDTO.getEmail()) != 0){
-            logger.info("exists");
+        if(userRepository.findByEmail(userDTO.getEmail()) != 0 || !userValidator.checkEmail(userDTO.getEmail())){
+            logger.info("logger faild email " + userDTO.getLogin());
             if(!userValidator.checkEmail(userDTO.getEmail())){
-                logger.info("logger faild email " + userDTO.getLogin());
                 bindingResult.addError(new FieldError("userDTO", "email", "Invalid email"));
             }else{
                 bindingResult.addError(new FieldError("userDTO", "email", "Email already exists"));
