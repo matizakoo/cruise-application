@@ -18,15 +18,15 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idUser", nullable = false)
-    private Long id;
+    @Column(name = "idUser")
+    private Integer id;
     @Column(name = "name")
     @NotNull
     private String name;
     @Column(name = "surname")
     @NotNull
     private String surname;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotNull
     private String email;
     @Column(name = "phoneNumber")
@@ -61,7 +61,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId,Long role , String password, String login) {
+    public User(Integer id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId,Long role , String password, String login) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -75,5 +75,9 @@ public class User {
         this.role = role;
         this.password = password;
         this.login = login;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

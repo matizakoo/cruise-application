@@ -1,9 +1,12 @@
 package com.zak.cruise.controller;
 
 import com.zak.cruise.dto.UserDTO;
+import com.zak.cruise.entity.User;
+import com.zak.cruise.repository.UserRepository;
 import com.zak.cruise.service.impl.UserService;
 import com.zak.cruise.service.validation.UserValidator;
 import lombok.extern.log4j.Log4j;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class AccountController {
-    private static final Logger log = LoggerFactory.getLogger(AccountController.class);
     private final UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     public AccountController(UserService userService){
@@ -51,40 +56,83 @@ public class AccountController {
         Logger logger = LoggerFactory.getLogger("Connects with /register");
         logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
-//        check if email already exists
-//        if(userService.userExists(userDTO.getEmail())){
-//            bindingResult.addError(new FieldError("userDTO", "email",
-//                    "User already exist"));
-//        }
 
-
-
-
-
-
-//        check if password is valid SUCCESS!!:)
-        if(userValidator.validatePassword(userDTO.getPassword())){
-                bindingResult.addError(new FieldError("userDTO", "password",
-                        "Invalid password"));
+        if(!userValidator.checkLogin(userDTO.getLogin())){
+            logger.info("logger faild login " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "login",
+                    "Invalid login"));
         }
 
+        //check if password is valid SUCCESS!!:)
+        if(userDTO.getPassword()==null || !userValidator.validatePassword(userDTO.getPassword())) {
+            logger.info("logger faild password " + userDTO.getPassword());
+            bindingResult.addError(new FieldError("userDTO", "password",
+                    "Invalid password"));
+        }
 
+        if(userDTO.getName() == null){
+            logger.info("logger faild name " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "name",
+                    "Invalid name"));
+        }
 
+        if(userDTO.getSurname() == null){
+            logger.info("logger faild surname " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "surname",
+                    "Invalid surname"));
+        }
+        if(userRepository.findByEmail(userDTO.getEmail()) != 0){
+            logger.info("exists");
+            if(!userValidator.checkEmail(userDTO.getEmail())){
+                logger.info("logger faild email " + userDTO.getLogin());
+                bindingResult.addError(new FieldError("userDTO", "email", "Invalid email"));
+            }else{
+                bindingResult.addError(new FieldError("userDTO", "email", "Email already exists"));
+            }
+        }
 
+        if(!userValidator.checkPhoneNumber(userDTO.getPhoneNumber())){
+            logger.info("logger faild phone number " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "phoneNumber", "Invalid phoneNumber"));
+        }
 
+        if(userDTO.getCountry() == null || userDTO.getCountry().length() < 4){
+            logger.info("logger faild country " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "country",
+                    "Invalid country"));
+        }
 
+        if(userDTO.getCity() == null){
+            logger.info("logger faild city " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "city",
+                    "Invalid city"));
+        }
 
+        if(userDTO.getAddress() == null){
+            logger.info("logger faild address " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "address",
+                    "Invalid address"));
+        }
 
+        if(!userValidator.checkZipCodeFormat(userDTO.getZipCode())){
+            logger.info("logger faild zip code " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "zipCode",
+                    "Invalid zipCode"));
+        }
 
-
-
+        if(userDTO.getDocumentId() == null){
+            logger.info("logger faild document id " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "documentId",
+                    "Invalid documentId"));
+        }
 
         if(bindingResult.hasErrors()){
             logger.info("Registering faild ");
             return "register";
         }
         redirectAttributes.addFlashAttribute("message", "Succes!");
+
         userService.register(userDTO);
-        return "redirect:/login";
+        return "login";
     }
 }

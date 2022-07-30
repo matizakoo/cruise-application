@@ -11,33 +11,36 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 public class UserDTO {
-    @NotBlank(message = "Enter your name")
+    private Long id;
     private String name;
-    @NotBlank(message = "Enter your surname")
     private String surname;
-    @NotBlank(message = "Enter your password")
-//    @Length(min = 8, max = 20, message = "Password must be valid and at least 8 and max 20 chars")
-    private String password;
-    @NotBlank(message = "Enter your email")
-    @Email(message = "Enter valid email")
     private String email;
-    @NotBlank(message = "Enter your phone number")
-    @Length(min = 9, message = "At least 9 symbols")
     private String phoneNumber;
-    @NotBlank(message = "Enter your country")
     private String country;
-    @NotBlank(message = "Enter your city")
     private String city;
-    @NotBlank(message = "Enter your address")
     private String address;
-    @NotBlank(message = "Enter your zipcode")
     private String zipCode;
-    @NotBlank(message = "Enter your login")
-    private String login;
-    private String formError;
     private String documentId;
     private Long role = Long.valueOf(1);
+    private String password;
+    private String login;
+    private String formError;
     public UserDTO() {
+    }
+
+    public UserDTO(String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, Long role, String password, String login) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.documentId = documentId;
+        this.role = role;
+        this.password = password;
+        this.login = login;
     }
 
     @Override

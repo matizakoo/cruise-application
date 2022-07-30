@@ -12,88 +12,85 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator implements ValidationService{
+    Logger logger = LoggerFactory.getLogger("validation");
     private Regex regex = new Regex();
+    private Pattern pattern;
+    private Matcher matcher;
+
     @Override
-    public void checkName(String name) {
-        if(name.length()==0)
-            throw new BadNameException();
+    public boolean checkName(String name) {
+        logger.info("Tries to validate name");
+        return name!=null && name.length() > 0;
     }
 
     @Override
-    public void checkSurname(String surname) {
-        if(surname.length()==0)
-            throw new BadSurnameException();
-    }
-
-    @Override
-    public void checkPassowrd(String password, String passwordRepeat) {
-        try{
-            if(!password.equals(passwordRepeat) || validatePassword(password))
-                throw new BadPasswordException();
-        }catch (BadPasswordException e){
-            e.printStackTrace();
-        }
+    public boolean checkSurname(String surname) {
+        return surname.length() > 0;
     }
 
     @Override
     public boolean validatePassword(String password) {
-        Logger logger = LoggerFactory.getLogger("validate password");
         logger.info("Tries to validate password");
-        Pattern pattern = Pattern.compile(regex.passwordValidation);
-        Matcher matcher = pattern.matcher(password);
+        pattern = Pattern.compile(regex.passwordValidation);
+        matcher = pattern.matcher(password);
         return matcher.matches(); //todo: check it
     }
 
     @Override
-    public void checkLogin(String login) {
-        Pattern pattern;
-        Matcher matcher;
+    public boolean checkLogin(String login) {
+        logger.info("Tries to validate login");
+        if(login == null)
+            return false;
         pattern = Pattern.compile(regex.loginValidation);
         matcher = pattern.matcher(login);
-        if(!matcher.matches())
-            throw new BadLoginException();
+        return matcher.matches();
     }
 
     @Override
-    public void checkEmail(String email) {
-        Pattern pattern;
-        Matcher matcher;
+    public boolean checkEmail(String email) {
+        logger.info("Tries to validate email");
+        if(email == null)
+            return false;
         pattern = Pattern.compile(regex.emailValidation);
         matcher = pattern.matcher(email);
-        if(!matcher.matches())
-            throw new BadEmailException();
+        return matcher.matches();
     }
 
     @Override
-    public void checkZipCodeFormat(String zipCode) {
-        Pattern pattern;
-        Matcher matcher;
+    public boolean checkZipCodeFormat(String zipCode) {
+        logger.info("Tries to validate zip code");
+        if(zipCode == null)
+            return false;
         pattern = Pattern.compile(regex.zipCodeValidation);
         matcher = pattern.matcher(zipCode);
-        if(!matcher.matches())
-            throw new BadZipcodeException();
+        return matcher.matches();
     }
 
     @Override
-    public void checkPhoneNumber(String phoneNumber) {
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile(regex.phoneNumberValidation);
-        matcher = pattern.matcher(phoneNumber);
-        if(!matcher.matches())
-            throw new BadPhoneNumberException();
+    public boolean checkPhoneNumber(String phoneNumber) {
+        logger.info("Tries to validate zip code");
+        if(phoneNumber == null) {
+            return false;
+        }
+        return phoneNumber.length() > 9;
+//        pattern = Pattern.compile(regex.phoneNumberValidation);
+//        matcher = pattern.matcher(phoneNumber);
+//        return matcher.matches();
     }
 
     @Override
-    public void checkCountry(String country) {
-        if(country.length() < 4)
-            throw new BadCountryException();
+    public boolean checkCountry(String country) {
+        return country.length() > 4;
     }
 
     @Override
-    public void checkCity(String city) {
-        if(city.length()==0)
-            throw new BadCityException();
+    public boolean checkCity(String city) {
+        return city != null && city.length() > 1;
+    }
+
+    @Override
+    public boolean findByEmail(String email) {
+        return true;
     }
 
 

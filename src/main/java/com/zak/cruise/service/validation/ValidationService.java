@@ -1,14 +1,14 @@
 package com.zak.cruise.service.validation;
 
 public interface ValidationService {
-    void checkName(String name);
-    void checkSurname(String surname);
-    void checkPassowrd(String password, String passwordRepeat);
+    boolean checkName(String name);
+    boolean checkSurname(String surname);
     boolean validatePassword(String password);
-    void checkLogin(String login);
-    void checkEmail(String email);
-    void checkZipCodeFormat(String zipCode);
-    void checkPhoneNumber(String phoneNumber);
-    void checkCountry(String country);
-    void checkCity(String city);
+    boolean checkLogin(String login);
+    boolean checkEmail(String email);
+    boolean checkZipCodeFormat(String zipCode);
+    boolean checkPhoneNumber(String phoneNumber);
+    boolean checkCountry(String country);
+    boolean checkCity(String city);
+    boolean findByEmail(String email);
 }
