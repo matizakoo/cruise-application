@@ -95,7 +95,7 @@ public class AccountController {
 
         if(!userValidator.checkPhoneNumber(userDTO.getPhoneNumber())){
             logger.info("logger faild phone number " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "phoneNumber", "Invalid phoneNumber"));
+            bindingResult.addError(new FieldError("userDTO", "phoneNumber", "Invalid phone number"));
         }
 
         if(userDTO.getCountry() == null || userDTO.getCountry().length() < 4){
@@ -122,7 +122,7 @@ public class AccountController {
                     "Invalid zipCode"));
         }
 
-        if(userDTO.getDocumentId() == null){
+        if(!userValidator.checkDocumentId(userDTO.getDocumentId())){
             logger.info("logger faild document id " + userDTO.getLogin());
             bindingResult.addError(new FieldError("userDTO", "documentId",
                     "Invalid documentId"));

@@ -8,7 +8,5 @@ public interface ValidationService {
     boolean checkEmail(String email);
     boolean checkZipCodeFormat(String zipCode);
     boolean checkPhoneNumber(String phoneNumber);
-    boolean checkCountry(String country);
-    boolean checkCity(String city);
-    boolean findByEmail(String email);
+    boolean checkDocumentId(String documentId);
 }

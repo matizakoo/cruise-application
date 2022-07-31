@@ -8,7 +8,9 @@ public class Regex {
     //any email
     public final String emailValidation = "^(.+)@(.+)\\.(.+)$";
     //latin + numbers 1-25 chars
-    public final String loginValidation = "^[a-z0-9]{1,25}";
+    public final String loginValidation = "^[a-zA-Z0-9]{1,25}";
     public final String zipCodeValidation = "^[a-zA-Z0-9]{1,15}$";
-    public final String phoneNumberValidation ="/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/";
+//    public final String phoneNumberValidation ="/\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})/";
+    public final String phoneNumberValidation ="^[\\+0-9]{9,12}$";
+    public final String documentIdValidation = "^[A-Z0-9]{1,25}$";
 }

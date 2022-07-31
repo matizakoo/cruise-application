@@ -20,11 +20,16 @@ public class UserValidator implements ValidationService{
     @Override
     public boolean checkName(String name) {
         logger.info("Tries to validate name");
+        if(name == null)
+            return false;
         return name!=null && name.length() > 0;
     }
 
     @Override
     public boolean checkSurname(String surname) {
+        logger.info("Tries to validate surname");
+        if(surname == null)
+            return false;
         return surname.length() > 0;
     }
 
@@ -72,26 +77,21 @@ public class UserValidator implements ValidationService{
         if(phoneNumber == null) {
             return false;
         }
-        return phoneNumber.length() > 9;
-//        pattern = Pattern.compile(regex.phoneNumberValidation);
-//        matcher = pattern.matcher(phoneNumber);
-//        return matcher.matches();
+//        return phoneNumber.length() > 9;
+        pattern = Pattern.compile(regex.phoneNumberValidation);
+        matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 
     @Override
-    public boolean checkCountry(String country) {
-        return country.length() > 4;
+    public boolean checkDocumentId(String documentId) {
+        logger.info("Tries to validate document id");
+        if(documentId == null) {
+            return false;
+        }
+//        return phoneNumber.length() > 9;
+        pattern = Pattern.compile(regex.phoneNumberValidation);
+        matcher = pattern.matcher(documentId);
+        return matcher.matches();
     }
-
-    @Override
-    public boolean checkCity(String city) {
-        return city != null && city.length() > 1;
-    }
-
-    @Override
-    public boolean findByEmail(String email) {
-        return true;
-    }
-
-
 }
