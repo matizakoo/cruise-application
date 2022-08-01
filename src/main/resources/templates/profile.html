@@ -19,7 +19,7 @@
         </div>
         <div class="body">
             <div class="inBody">
-
+                    <p th:text="${username}" th:unless="${session == null}"> . </p>
             </div>
         </div>
         <div class="footer">

@@ -27,16 +27,6 @@ public class UserService {
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
-
-//    @Transactional
-//    public Optional<User> findUserByEmail(String email) {
-//        return userRepository.findUserByEmail(email);
-//    }
-
-//    public boolean isExists(String email){
-//        return findUserByEmail(email).isPresent();
-//    }
-
     @Transactional
     public User save(User user){
         return userRepository.save(user);
@@ -45,8 +35,9 @@ public class UserService {
     public User register(UserDTO userDTO){
         ChangeWordsService change = new ChangeWordsService();
         //password encrypter
-        String newPassword = passwordEncoder.encode(userDTO.getPassword());
-        userDTO.setPassword(newPassword);
+//        String newPassword = passwordEncoder.encode(userDTO.getPassword());
+//        userDTO.setPassword(newPassword);
+        userDTO.setPassword(userDTO.getPassword());
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
         userDTO.setName(change.changeName(userDTO.getName()));
         userDTO.setSurname(change.changeSurname(userDTO.getSurname()));

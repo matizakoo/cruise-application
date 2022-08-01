@@ -12,4 +12,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT count(login) FROM user WHERE login = :login", nativeQuery = true)
     int findByLogin(String login);
+
+    @Query(value = "SELECT count(login) FROM user WHERE login = :login", nativeQuery = true)
+    int ifLoginExists(String login);
+
+    @Query(value = "SELECT idUser FROM user WHERE login = :login", nativeQuery = true)
+    Integer getIdOfLogin(String login);
+
+    @Query(value = "SELECT idUser FROM user WHERE password = :password", nativeQuery = true)
+    Integer getIdOfpassword(String password);
 }

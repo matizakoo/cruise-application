@@ -29,7 +29,7 @@ public class User {
     @Column(name = "email", unique = true)
     @NotNull
     private String email;
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     @NotNull
     private String phoneNumber;
     @Column(name = "country")
@@ -41,10 +41,10 @@ public class User {
     @Column(name = "address")
     @NotNull
     private String address;
-    @Column(name = "zipCode")
+    @Column(name = "zip_code")
     @NotNull
     private String zipCode;
-    @Column(name = "documentId")
+    @Column(name = "document_id")
     @NotNull
     private String documentId;
     @Column(name = "role_idrole")

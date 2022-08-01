@@ -84,6 +84,7 @@ public class AccountController {
             bindingResult.addError(new FieldError("userDTO", "surname",
                     "Invalid surname"));
         }
+
         if(userRepository.findByEmail(userDTO.getEmail()) != 0 || !userValidator.checkEmail(userDTO.getEmail())){
             logger.info("logger faild email " + userDTO.getLogin());
             if(!userValidator.checkEmail(userDTO.getEmail())){
@@ -132,9 +133,9 @@ public class AccountController {
             logger.info("Registering faild ");
             return "register";
         }
-        redirectAttributes.addFlashAttribute("message", "Succes!");
+//        redirectAttributes.addFlashAttribute("message", "Succes!");
 
         userService.register(userDTO);
-        return "login";
+        return "loginx";
     }
 }
