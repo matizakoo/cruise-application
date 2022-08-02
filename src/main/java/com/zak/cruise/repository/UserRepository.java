@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT count(email) FROM user WHERE email = :email", nativeQuery = true)
-    int findByEmail(String email);
+    int findByEmailz(String email);
 
     @Query(value = "SELECT count(login) FROM user WHERE login = :login", nativeQuery = true)
     int findByLogin(String login);
@@ -21,4 +21,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT idUser FROM user WHERE password = :password", nativeQuery = true)
     Integer getIdOfpassword(String password);
+
+    User findByEmail(String email);
 }

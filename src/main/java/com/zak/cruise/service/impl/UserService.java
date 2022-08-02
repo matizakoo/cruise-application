@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,10 +20,10 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final DelegatingPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, DelegatingPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -34,10 +35,12 @@ public class UserService {
 
     public User register(UserDTO userDTO){
         ChangeWordsService change = new ChangeWordsService();
-        //password encrypter
+//        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+//        String password = crypt.encode(userDTO.getPassword());
 //        String newPassword = passwordEncoder.encode(userDTO.getPassword());
-//        userDTO.setPassword(newPassword);
-        userDTO.setPassword(userDTO.getPassword());
+//        userDTO.setPassword(password);
+//        userDTO.setPassword(userDTO.getPassword());
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
         userDTO.setName(change.changeName(userDTO.getName()));
         userDTO.setSurname(change.changeSurname(userDTO.getSurname()));

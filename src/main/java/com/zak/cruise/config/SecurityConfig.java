@@ -2,6 +2,7 @@ package com.zak.cruise.config;
 
 //import com.zak.cruise.service.impl.SingInUser;
 import com.zak.cruise.repository.UserRepository;
+import com.zak.cruise.service.impl.UserDetailServiceImpl;
 import com.zak.cruise.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,28 +17,47 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final BCryptPasswordEncoder passwordEncoder;
+//    private final BCryptPasswordEncoder passwordEncoder;
+    @Resource
+    private UserDetailServiceImpl userDetailsService;
 
-    public SecurityConfig(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+//    public SecurityConfig(BCryptPasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
+    private final DelegatingPasswordEncoder delegatingPasswordEncoder;
+    public SecurityConfig(DelegatingPasswordEncoder delegatingPasswordEncoder){
+        this.delegatingPasswordEncoder = delegatingPasswordEncoder;
     }
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder);
-
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(delegatingPasswordEncoder);
         return authProvider;
     }
+
+//    @Bean
+//    public DaoAuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//        authProvider.setUserDetailsService(userDetailsService());
+//        authProvider.setPasswordEncoder(passwordEncoder);
+//
+//        return authProvider;
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -48,14 +68,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/users").authenticated()
+                .antMatchers("/").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/loginx")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("profile")
+                .defaultSuccessUrl("/profile")
                 .permitAll()
                 .and()
                 .logout()

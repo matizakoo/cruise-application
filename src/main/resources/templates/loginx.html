@@ -20,7 +20,7 @@
             </div>
             <form method="post" th:action="@{/loginx}" th:object="${userDTO}" th:errorclass="is-valid" name="formError">
                 <div class="inputValues">
-                    login
+                    email
                 </div>
                 <input type="text" name="login" th:field="*{login}" th:errorclass="is-valid" th:name="errorWithLogin">
                 <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="invalidFeedback" th:name="errorWithLogin1"></div>
