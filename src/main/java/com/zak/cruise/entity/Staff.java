@@ -1,17 +1,27 @@
-//package com.zak.cruise.entity;
-//
-//public class Staff {
-//    private String staffName;
-//
-//    public Staff(String staffName) {
-//        this.staffName = staffName;
-//    }
-//
-//    public String getStaffName() {
-//        return staffName;
-//    }
-//
-//    public void setStaffName(String staffName) {
-//        this.staffName = staffName;
-//    }
-//}
+package com.zak.cruise.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "staff_name")
+@Getter
+@Setter
+public class Staff {
+    @Id
+    @Column(name = "id_staff")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "staff_name")
+    private String staffName;
+
+    public Staff() {
+    }
+
+    public Staff(String staffName) {
+        this.staffName = staffName;
+    }
+}

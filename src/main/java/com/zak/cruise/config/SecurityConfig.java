@@ -31,9 +31,9 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    private final BCryptPasswordEncoder passwordEncoder;
+
     @Resource
     private UserDetailServiceImpl userDetailsService;
-
 //    public SecurityConfig(BCryptPasswordEncoder passwordEncoder) {
 //        this.passwordEncoder = passwordEncoder;
 //    }

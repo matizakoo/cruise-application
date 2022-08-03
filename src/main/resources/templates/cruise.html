@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise app</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <div class="basicButton">
+                <a href="register.html">Register</a>
+            </div>
+            <div class="basicButton">
+                <a href="loginx.html">Login</a>
+            </div>
+        </div>
+        <div class="body">
+            <div class="inBody">
+                <table>
+                    <thead>
+                    <tr>
+                        <th> nameOfCruise </th>
+                        <th> cost </th>
+                        <th> start </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${cruises.empty}">
+                        <td colspan="2"> No cruise avaliable :( </td>
+                    </tr>
+                    <tr th:each="cruise : ${cruises}">
+                        <td><span th:text="${cruise.nameOfCruise}"> nameOfCruise </span></td>
+                        <td><span th:text="${cruise.cost}"> cost </span></td>
+                        <td><span th:text="${cruise.route.finishPlace}"> start </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+        
+        </div>
+    </div>
+</body>
+</html>
