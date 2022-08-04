@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class IndexController {
     @GetMapping("/index")
-    public String index(@ModelAttribute UserLoginDTO userLoginDTO, Model model){
+    public String index(@ModelAttribute UserLoginDTO userLoginDTO, Model model) {
         model.addAttribute("userDTO", userLoginDTO);
         Logger logger = LoggerFactory.getLogger("Connects with /index");
         logger.info("connected with /index");

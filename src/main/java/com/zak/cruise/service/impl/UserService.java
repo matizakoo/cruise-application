@@ -20,10 +20,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final DelegatingPasswordEncoder passwordEncoder;
+//    private final DelegatingPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, DelegatingPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, /*DelegatingPasswordEncoder*/BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -35,12 +36,12 @@ public class UserService {
 
     public User register(UserDTO userDTO){
         ChangeWordsService change = new ChangeWordsService();
-//        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
-//        String password = crypt.encode(userDTO.getPassword());
+        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+        String password = crypt.encode(userDTO.getPassword());
 //        String newPassword = passwordEncoder.encode(userDTO.getPassword());
-//        userDTO.setPassword(password);
+        userDTO.setPassword(password);
 //        userDTO.setPassword(userDTO.getPassword());
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
         userDTO.setName(change.changeName(userDTO.getName()));
         userDTO.setSurname(change.changeSurname(userDTO.getSurname()));

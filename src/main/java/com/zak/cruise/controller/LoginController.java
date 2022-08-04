@@ -4,7 +4,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import com.zak.cruise.dto.UserDTO;
 import com.zak.cruise.dto.UserLoginDTO;
 import com.zak.cruise.repository.UserRepository;
-import com.zak.cruise.service.impl.UserDetailServiceImpl;
+//import com.zak.cruise.service.impl.UserDetailServiceImpl;
 import org.hibernate.Cache;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -38,8 +39,9 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
     Logger logger = LoggerFactory.getLogger("Connects with /login");
-    @Autowired
-    private DelegatingPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private DelegatingPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public LoginController(UserRepository userRepository) {
@@ -62,14 +64,15 @@ public class LoginController {
     public String loginUser(@Valid UserDTO userDTO, BindingResult bindingResult,Model model, HttpServletRequest request, HttpSession session/*, RedirectAttributes redirectAttributes*/){
         logger.info(userDTO.getLogin());
         try {
-            final com.zak.cruise.entity.User user = userRepository.findByEmail(userDTO.getEmail());
+//            final com.zak.cruise.entity.User user = userRepository.findByEmail(userDTO.getEmail());
+            User user = null;
             if(user==null){
                 logger.info("User is null");
                 throw new IllegalArgumentException("x");
             }
             logger.info("go with it!");
-            UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
-                    .password(passwordEncoder.encode(user.getPassword())).authorities("USER").build();
+//            UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
+//                    .password(passwordEncoder.encode(user.getPassword())).authorities("USER").build();
         }catch (IllegalArgumentException e){
             bindingResult.addError(new FieldError("userDTO", "password",
                     "Invalid login data"));

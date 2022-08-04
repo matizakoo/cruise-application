@@ -50,7 +50,7 @@ public class AccountController {
         logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
 
-        if(userRepository.findByLogin(userDTO.getLogin()) != 0 || !userValidator.checkLogin(userDTO.getLogin())){
+        if(userRepository.findByLogiin(userDTO.getLogin()) != 0 || !userValidator.checkLogin(userDTO.getLogin())){
             logger.info("logger faild login " + userDTO.getLogin());
             if(!userValidator.checkLogin(userDTO.getLogin())){
                 bindingResult.addError(new FieldError("userDTO", "login", "Invalid login"));

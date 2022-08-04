@@ -1,105 +1,84 @@
 package com.zak.cruise.config;
-
-//import com.zak.cruise.service.impl.SingInUser;
-import com.zak.cruise.repository.UserRepository;
-import com.zak.cruise.service.impl.UserDetailServiceImpl;
-import com.zak.cruise.service.impl.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
-import javax.annotation.Resource;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//    private final BCryptPasswordEncoder passwordEncoder;
 
-    @Resource
-    private UserDetailServiceImpl userDetailsService;
-//    public SecurityConfig(BCryptPasswordEncoder passwordEncoder) {
-//        this.passwordEncoder = passwordEncoder;
-//    }
-    private final DelegatingPasswordEncoder delegatingPasswordEncoder;
-    public SecurityConfig(DelegatingPasswordEncoder delegatingPasswordEncoder){
-        this.delegatingPasswordEncoder = delegatingPasswordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ObjectMapper objectMapper;
+    private final RestAuthenticationSuccessHandler successHandler;
+    private final RestAuthenticationFailureHandler failureHandler;
+    private final String secret;
+
+    public SecurityConfig(
+            @Autowired UserDetailsService userDetailsService,
+            PasswordEncoder bCryptPasswordEncoder,
+            @Autowired ObjectMapper objectMapper,
+            @Autowired RestAuthenticationSuccessHandler successHandler,
+            RestAuthenticationFailureHandler failureHandler,
+            @Value("${jwt.secret}") String secret) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = (BCryptPasswordEncoder) bCryptPasswordEncoder;
+        this.objectMapper = objectMapper;
+        this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
+        this.secret = secret;
     }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(delegatingPasswordEncoder);
-        return authProvider;
-    }
-
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService());
-//        authProvider.setPasswordEncoder(passwordEncoder);
-//
-//        return authProvider;
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/swagger-ui.html","/v2/api-docs","/webjars/**","/swagger-resources/**").permitAll()
+//                .antMatchers(HttpMethod.GET,"/board-games/**").permitAll()
+//                .antMatchers(HttpMethod.POST,"/board-games/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_GAMEMASTER")
+//                .antMatchers(HttpMethod.PUT,"/board-games/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_GAMEMASTER")
+//                .antMatchers(HttpMethod.PATCH,"/board-games/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_GAMEMASTER")
+//                .antMatchers(HttpMethod.DELETE,"/board-games/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_GAMEMASTER")
+//                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/loginx")
-                .usernameParameter("login")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/profile")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .rememberMe().tokenRepository(persistenTokenRepository())
-                        .and();
-//                .antMatchers("/users").authenticated()
-//                .anyRequest().permitAll()
+//                .logout()
+//                    .logoutUrl("/logout")
+//                    .logoutSuccessUrl("/swagger-ui.html")
 //                .and()
-//                .formLogin()
-//                .loginPage("/loginx")
-//                .usernameParameter("email")
-//                .defaultSuccessUrl("/users")
-//                .permitAll()
-//                .and()
-//                .logout().logoutSuccessUrl("/").permitAll();
-        http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .invalidSessionUrl("/");
+                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .and()
+                .addFilter(authenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(super.authenticationManager(), userDetailsService, secret))
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                .headers().frameOptions().disable();
     }
 
-    private PersistentTokenRepository persistenTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-        return tokenRepository;
+    public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+        JsonObjectAuthenticationFilter authenticationFilter = new JsonObjectAuthenticationFilter(objectMapper);
+        authenticationFilter.setAuthenticationSuccessHandler(successHandler);
+        authenticationFilter.setAuthenticationFailureHandler(failureHandler);
+        authenticationFilter.setAuthenticationManager(super.authenticationManager());
+        return authenticationFilter;
     }
 }

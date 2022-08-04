@@ -3,6 +3,9 @@ package com.zak.cruise.dto;
 import com.zak.cruise.entity.Cruise;
 import com.zak.cruise.entity.Route;
 import com.zak.cruise.entity.Ship;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.Column;
@@ -12,6 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
+@ToString
+@Getter
+@Setter
 public class CruiseDTO {
     private Long id;
     private String nameOfCruise;

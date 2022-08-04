@@ -1,5 +1,6 @@
 package com.zak.cruise.entity;
 
+import com.zak.cruise.repository.RoleRepository;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -17,8 +21,8 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idUser")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private Integer id;
     @Column(name = "name")
     @NotNull
@@ -47,9 +51,12 @@ public class User {
     @Column(name = "document_id")
     @NotNull
     private String documentId;
-    @Column(name = "role_idrole")
+//    @Column(name = "role_idrole")
+//    @Value("1")
+    @OneToOne
+    @JoinColumn(name = "role_idrole")
     @Value("1")
-    private Long role; //TODO
+    private com.zak.cruise.entity.Role role;
     @Column(name = "password")
     @NotNull
     private String password;
@@ -57,11 +64,20 @@ public class User {
     @NotNull
     private String login;
     //the role is first by default (1 - guest, 2 - moderator, 3 - admin)
+    private boolean active = true;
+
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "role",
+//            joinColumns = {@JoinColumn(name="idrole")},
+//            inverseJoinColumns = {@JoinColumn(name="role")}
+//    )
+//    private List<Role> roles = new ArrayList<>();
 
     public User() {
     }
 
-    public User(Integer id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId,Long role , String password, String login) {
+    public User(Integer id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, String password, String login) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -75,9 +91,20 @@ public class User {
         this.role = role;
         this.password = password;
         this.login = login;
+        this.active = true;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Arrays getRoles() {
+        RoleRepository roleRepository = null;
+        ArrayList<Role> role =  roleRepository.findAllByRole();
+        return (Arrays) Arrays.asList(role);
     }
 }

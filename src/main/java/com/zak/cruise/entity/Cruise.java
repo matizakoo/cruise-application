@@ -43,10 +43,13 @@ public class Cruise {
     @JoinColumn(name = "ship_id_ship")
     private Ship ship;
 
+    @Column(name = "description")
+    private String description;
+
     public Cruise() {
     }
 
-    public Cruise(String nameOfCruise, LocalDate date, Time time, int cost, int numberOfSeats, int duration, Route route, Ship ship) {
+    public Cruise(String nameOfCruise, LocalDate date, Time time, int cost, int numberOfSeats, int duration, Route route, Ship ship, String description) {
         this.nameOfCruise = nameOfCruise;
         this.date = date;
         this.time = time;
@@ -55,5 +58,6 @@ public class Cruise {
         this.duration = duration;
         this.route = route;
         this.ship = ship;
+        this.description = description;
     }
 }

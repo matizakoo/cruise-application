@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,24 +18,42 @@
             </div>
         </div>
         <div class="body">
-            <div class="inBody">
-                <table>
+            <div class="contentoftable">
+                <table class="cruiselist">
                     <thead>
                     <tr>
-                        <th> nameOfCruise </th>
+                        <th> Cruise </th>
+                        <th> date </th>
                         <th> cost </th>
                         <th> start </th>
+                        <th> finish </th>
                     </tr>
                     </thead>
                     <tbody>
+                    <form method="post" th:action="@{/makeOrder}" th:object="${cruise}" name="formOrder">
                     <tr th:if="${cruises.empty}">
                         <td colspan="2"> No cruise avaliable :( </td>
                     </tr>
                     <tr th:each="cruise : ${cruises}">
-                        <td><span th:text="${cruise.nameOfCruise}"> nameOfCruise </span></td>
-                        <td><span th:text="${cruise.cost}"> cost </span></td>
-                        <td><span th:text="${cruise.route.finishPlace}"> start </span></td>
+                            <td><span th:text="${cruise.nameOfCruise}"> nameOfCruise </span></td>
+                            <td><span th:text="${cruise.date}"> date </span></td>
+                            <td><span th:text="${cruise.cost}"> cost </span></td>
+                            <td><span th:text="${cruise.route.startPlace}"> start </span></td>
+                            <td><span th:text="${cruise.route.finishPlace}"> finish </span></td>
+                            <td style="text-align: center;">
+                                <span>
+                                    Interested?
+                                </span>
+                                    <input type="submit" value="order">
+<!--                                    <div th:if="${#fields.hasErrors('cruise.id')}" th:errors="*{cruise.id}" class="invalidFeedback" th:name="errorWithOrder1"></div>-->
+                            </td>
+<!--                        <tr class="cells">-->
+<!--                            <td style="width:100%;text-align: center; margin-left: auto; margin-right: auto;" colspan="5">-->
+<!--                                <p><span th:text="${cruise.description}"> description</span></p>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                     </tr>
+                    </form>
                     </tbody>
                 </table>
             </div>
