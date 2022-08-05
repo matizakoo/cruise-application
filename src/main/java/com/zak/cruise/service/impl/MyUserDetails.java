@@ -20,43 +20,18 @@ import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
     Logger logger = LoggerFactory.getLogger("encoder");
-    private Integer id;
-    private String name;
-    private String surname;
-    private String email;
-    private String phoneNumber;
-    private String country;
-    private String city;
-    private String address;
-    private String zipCode;
-    private String documentId;
-    private Long role; //TODO
-    private String login;
-    private String username;
+    private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 
     public MyUserDetails(User user) {
-        this.id = user.getId();
-        this.name = user.getUsername();
-        this.surname = user.getSurname();
-        this.email = user.getEmail();
-        this.phoneNumber = user.getPhoneNumber();
-        this.country = user.getCountry();
-        this.city = user.getCity();
-        this.address = user.getAddress();
-        this.zipCode = user.getZipCode();
-        this.documentId = user.getDocumentId();
-        this.username = user.getLogin();
-        this.password = passwordEncoder.encode(user.getPassword());
-        this.active = true;
-        this.authorities = Arrays.stream("1".split(","))
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+        this.userName = user.getUsername();
+        this.password = user.getPassword();
+        this.active = user.isActive();
+        this.authorities = Arrays.stream("USER".split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -71,12 +46,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true ;
+        return true;
     }
 
     @Override
@@ -93,6 +68,79 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+//    private Integer id;
+//    private String name;
+//    private String surname;
+//    private String email;
+//    private String phoneNumber;
+//    private String country;
+//    private String city;
+//    private String address;
+//    private String zipCode;
+//    private String documentId;
+//    private Long role; //TODO
+//    private String login;
+//    private String username;
+//    private String password;
+//    private boolean active;
+//    private List<GrantedAuthority> authorities;
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//
+//
+//    public MyUserDetails(User user) {
+//        this.id = user.getId();
+//        this.name = user.getUsername();
+//        this.surname = user.getSurname();
+//        this.email = user.getEmail();
+//        this.phoneNumber = user.getPhoneNumber();
+//        this.country = user.getCountry();
+//        this.city = user.getCity();
+//        this.address = user.getAddress();
+//        this.zipCode = user.getZipCode();
+//        this.documentId = user.getDocumentId();
+//        this.username = user.getLogin();
+//        this.password = passwordEncoder.encode(user.getPassword());
+//        this.active = true;
+//        this.authorities = Arrays.stream("1".split(","))
+//                    .map(SimpleGrantedAuthority::new)
+//                    .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return authorities;
+//    }
+//
+//    @Override
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true ;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return active;
+//    }
 
 
 }

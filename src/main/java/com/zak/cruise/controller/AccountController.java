@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +51,6 @@ public class AccountController {
         Logger logger = LoggerFactory.getLogger("Connects with /register");
         logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
-
         if(userRepository.findByLogiin(userDTO.getLogin()) != 0 || !userValidator.checkLogin(userDTO.getLogin())){
             logger.info("logger faild login " + userDTO.getLogin());
             if(!userValidator.checkLogin(userDTO.getLogin())){

@@ -40,7 +40,8 @@ public class MyUserDetailsService implements UserDetailsService {
                 user.get().getAddress(),
                 user.get().getZipCode(),
                 user.get().getDocumentId(),
-                passwordEncoder.encode(user.get().getPassword()),
+                user.get().getPassword(),
+//                passwordEncoder.encode(user.get().getPassword()),
                 user.get().getLogin())
         );
         logger.info(myUserDetails.getUsername());

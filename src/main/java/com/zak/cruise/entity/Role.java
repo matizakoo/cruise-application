@@ -2,6 +2,7 @@ package com.zak.cruise.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idrole")
+    @Value("1")
     private Long id;
     @Column(name = "role")
     private String role;

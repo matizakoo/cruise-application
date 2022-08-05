@@ -1,6 +1,7 @@
 package com.zak.cruise.service.impl;
 
 import com.zak.cruise.dto.UserDTO;
+import com.zak.cruise.entity.Role;
 import com.zak.cruise.entity.User;
 import com.zak.cruise.repository.UserRepository;
 import com.zak.cruise.service.validation.ChangeWordsService;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,11 +38,10 @@ public class UserService {
 
     public User register(UserDTO userDTO){
         ChangeWordsService change = new ChangeWordsService();
-        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
-        String password = crypt.encode(userDTO.getPassword());
+//        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+//        String password = crypt.encode(userDTO.getPassword());
 //        String newPassword = passwordEncoder.encode(userDTO.getPassword());
-        userDTO.setPassword(password);
-//        userDTO.setPassword(userDTO.getPassword());
+        userDTO.setPassword(userDTO.getPassword());
 //        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
         userDTO.setUsername(change.changeName(userDTO.getUsername()));

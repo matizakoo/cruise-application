@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user")
     private Integer id;
     @Column(name = "username")
@@ -49,10 +49,6 @@ public class User {
     private String documentId;
 //    @Column(name = "role_idrole")
 //    @Value("1")
-    @OneToOne
-    @JoinColumn(name = "role_idrole")
-    @Value("1")
-    private com.zak.cruise.entity.Role role;
     @Column(name = "password")
     @NotNull
     private String password;
@@ -84,7 +80,6 @@ public class User {
         this.address = address;
         this.zipCode = zipCode;
         this.documentId = documentId;
-        this.role = role;
         this.password = password;
         this.login = login;
         this.active = true;

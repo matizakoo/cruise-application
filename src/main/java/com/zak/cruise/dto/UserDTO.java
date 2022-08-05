@@ -1,5 +1,6 @@
 package com.zak.cruise.dto;
 
+import com.zak.cruise.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -21,14 +22,13 @@ public class UserDTO {
     private String address;
     private String zipCode;
     private String documentId;
-    private Long role = Long.valueOf(1);
     private String password;
     private String login;
     private String formError;
     public UserDTO() {
     }
 
-    public UserDTO(String username, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, Long role, String password, String login) {
+    public UserDTO(String username, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, String password, String login) {
         this.username = username;
         this.surname = surname;
         this.email = email;
@@ -38,7 +38,6 @@ public class UserDTO {
         this.address = address;
         this.zipCode = zipCode;
         this.documentId = documentId;
-        this.role = role;
         this.password = password;
         this.login = login;
     }

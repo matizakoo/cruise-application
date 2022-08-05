@@ -1,7 +1,6 @@
 package com.zak.cruise;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zak.cruise.config.RestAuthenticationSuccessHandler;
 import com.zak.cruise.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -44,6 +43,4 @@ public class CruiseApplication {
 	public ObjectMapper objectMapper(){
 		return new ObjectMapper();
 	}
-
-
 }
