@@ -43,7 +43,7 @@ public class UserService {
 //        userDTO.setPassword(userDTO.getPassword());
 //        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
-        userDTO.setName(change.changeName(userDTO.getName()));
+        userDTO.setUsername(change.changeName(userDTO.getUsername()));
         userDTO.setSurname(change.changeSurname(userDTO.getSurname()));
         userDTO.setCountry(change.changeCountry(userDTO.getCountry()));
         userDTO.setCity(change.changeCity(userDTO.getCity()));

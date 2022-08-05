@@ -8,4 +8,5 @@ import lombok.Getter;
 public class LoginCredentialsDto {
     private String username;
     private String password;
+    private String formError;
 }

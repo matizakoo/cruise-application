@@ -31,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
         // String address, String zipCode, String documentId,Long role , String password, String login
         MyUserDetails myUserDetails = new MyUserDetails(new User (
                 user.get().getId(),
-                user.get().getName(),
+                user.get().getUsername(),
                 user.get().getSurname(),
                 user.get().getEmail(),
                 user.get().getPhoneNumber(),

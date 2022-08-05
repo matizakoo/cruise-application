@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class UserDTO {
     private Long id;
-    private String name;
+    private String username;
     private String surname;
     private String email;
     private String phoneNumber;
@@ -28,8 +28,8 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, Long role, String password, String login) {
-        this.name = name;
+    public UserDTO(String username, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, Long role, String password, String login) {
+        this.username = username;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -46,7 +46,7 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "name='" + name + '\'' +
+                "name='" + username + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

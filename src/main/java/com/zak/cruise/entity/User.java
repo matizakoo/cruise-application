@@ -1,6 +1,5 @@
 package com.zak.cruise.entity;
 
-import com.zak.cruise.repository.RoleRepository;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -24,9 +20,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
     private Integer id;
-    @Column(name = "name")
+    @Column(name = "username")
     @NotNull
-    private String name;
+    private String username;
     @Column(name = "surname")
     @NotNull
     private String surname;
@@ -77,9 +73,9 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, String password, String login) {
+    public User(Integer id, String username, String surname, String email, String phoneNumber, String country, String city, String address, String zipCode, String documentId, String password, String login) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -102,9 +98,10 @@ public class User {
         return active;
     }
 
-    public Arrays getRoles() {
-        RoleRepository roleRepository = null;
-        ArrayList<Role> role =  roleRepository.findAllByRole();
-        return (Arrays) Arrays.asList(role);
-    }
+//    public Arrays getRoles() {
+//        RoleRepository roleRepository = null;
+//        Role role1 = new Role();
+//        ArrayList<Role> role =  roleRepository.findAll();
+//        return (Arrays) Arrays.asList(role);
+//    }
 }

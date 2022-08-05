@@ -18,18 +18,19 @@
             <div class="loginCenter">
                 Login!
             </div>
-            <form method="post" th:action="@{/loginx}" th:object="${userDTO}" th:errorclass="is-valid" name="formError">
+<!--            <form method="post" th:action="@{/loginx}" th:object="${userDTO}" th:errorclass="is-valid" name="formError">-->
+            <form method="post" th:action="@{/loginx}" th:object="${credentials}" th:errorclass="is-valid" name="formError">
                 <div class="inputValues">
                     email
                 </div>
-                <input type="text" name="login" th:field="*{login}" th:errorclass="is-valid" th:name="errorWithLogin">
-                <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="invalidFeedback" th:name="errorWithLogin1"></div>
+                <input type="text" name="login" th:field="*{username}" th:errorclass="is-valid" th:name="errorWithLogin">
+<!--                <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="invalidFeedback" th:name="errorWithLogin1"></div>-->
 
                 <div class="inputValues">
                     password
                 </div>
                 <input type="password" name="password" th:field="*{password}" th:errorclass="is-valid" th:name="errorWithPassword1">
-                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalidFeedback" th:name="errorWithPassword2"></div>
+<!--                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalidFeedback" th:name="errorWithPassword2"></div>-->
                 <input type="submit" style="width: 50%;margin-left:auto;margin-right:auto;">
             </form>
         </div>

@@ -42,7 +42,7 @@ public class MyUserDetails implements UserDetails {
 
     public MyUserDetails(User user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.name = user.getUsername();
         this.surname = user.getSurname();
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();

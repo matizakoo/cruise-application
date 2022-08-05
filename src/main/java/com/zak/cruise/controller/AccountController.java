@@ -66,9 +66,9 @@ public class AccountController {
                     "Invalid password"));
         }
 
-        if(userDTO.getName() == null){
+        if(userDTO.getUsername() == null){
             logger.info("logger faild name " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "name",
+            bindingResult.addError(new FieldError("userDTO", "username",
                     "Invalid name"));
         }
 

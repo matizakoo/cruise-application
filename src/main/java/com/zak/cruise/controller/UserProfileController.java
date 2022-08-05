@@ -21,7 +21,7 @@ public class UserProfileController {
     @GetMapping("profile")
     public String getUserProfile(@ModelAttribute("userDTO") UserDTO userDTO, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-        session.setAttribute("username", userDTO.getName());
+        session.setAttribute("username", userDTO.getUsername());
         return "profile";
     }
 }

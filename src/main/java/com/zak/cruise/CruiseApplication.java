@@ -14,12 +14,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
+//@EnableWebMvc
 public class CruiseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CruiseApplication.class, args);
@@ -28,20 +30,6 @@ public class CruiseApplication {
 	public ModelMapper modelMapper(){
 		return new ModelMapper();
 	}
-
-//	@Bean
-//	public DelegatingPasswordEncoder delegatingPasswordEncoder() {
-//		PasswordEncoder defaultEncoder = new StandardPasswordEncoder();
-//		Map<String, PasswordEncoder> encoders = new HashMap<>();
-//		encoders.put("bcrypt", new BCryptPasswordEncoder());
-//		encoders.put("scrypt", new SCryptPasswordEncoder());
-//
-//		DelegatingPasswordEncoder passworEncoder = new DelegatingPasswordEncoder(
-//				"bcrypt", encoders);
-//		passworEncoder.setDefaultPasswordEncoderForMatches(defaultEncoder);
-//
-//		return passworEncoder;
-//	}
 
 	@Bean
 	public BCryptPasswordEncoder encoder() {
@@ -56,4 +44,6 @@ public class CruiseApplication {
 	public ObjectMapper objectMapper(){
 		return new ObjectMapper();
 	}
+
+
 }

@@ -1,6 +1,8 @@
 package com.zak.cruise.config;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,13 +18,14 @@ import static com.zak.cruise.config.JwtAuthorizationFilter.TOKEN_PREFIX;
 @Component
 @RequiredArgsConstructor
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
+    Logger logger = LoggerFactory.getLogger("RestAuthenticationSuccessHandler");
     private final JwtUtil jwtUtil;
 
     public void onAuthenticationSuccess(
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication) {
+        logger.info("onAuthenticationSuccess");
         User user = (User)authentication.getPrincipal();
         String accessToken = jwtUtil.generateAccessToken(
                 user.getUsername(),
