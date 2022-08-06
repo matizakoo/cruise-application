@@ -50,7 +50,8 @@ public class CruiseController {
     }
 
     @PostMapping("/makeOrder")
-    public String order(Cruise cruise, User user, Model model /*, BindingResult bindingResult*/){
+    public String order(/*Model or sth mozna tez wyjebac cruise i model, cos tam roman mowil*/Cruise cruise, User user, Model model /*, BindingResult bindingResult*/){
+        //model get by cruise name / id
         user = userRepository.findByEmail("zegar@wp.pl");
         logger.info(""+cruise.getId());
 //        Cruise cruise = new Cruise();

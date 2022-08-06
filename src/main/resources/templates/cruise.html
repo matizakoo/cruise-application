@@ -10,11 +10,20 @@
 <body>
     <div class="container">
         <div class="nav">
+            <a th:href="@{/}" class="home">
+                HOME
+            </a>
             <div class="basicButton">
-                <a href="register.html">Register</a>
+                <a th:href="@{/register}">Register</a>
             </div>
             <div class="basicButton">
-                <a href="loginx.html">Login</a>
+                <a th:href="@{/loginx}">Login</a>
+            </div>
+            <div class="basicButton">
+                <a th:href="@{/dawaj}">Cruise</a>
+            </div>
+            <div class="basicButton">
+                <a th:href="@{/profile}">Profile</a>
             </div>
         </div>
         <div class="body">
@@ -30,12 +39,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <form method="post" th:action="@{/makeOrder}" th:object="${cruise}" name="formOrder">
+
                     <tr th:if="${cruises.empty}">
                         <td colspan="2"> No cruise avaliable :( </td>
                     </tr>
                     <tr th:each="cruise : ${cruises}">
+                        <form method="post" th:action="@{/makeOrder}" th:object="${cruise}" name="formOrder">
                             <td><span th:text="${cruise.nameOfCruise}"> nameOfCruise </span></td>
+                            <td><span th:text="${cruise.id}"> id </span></td>
                             <td><span th:text="${cruise.date}"> date </span></td>
                             <td><span th:text="${cruise.cost}"> cost </span></td>
                             <td><span th:text="${cruise.route.startPlace}"> start </span></td>
@@ -47,13 +58,14 @@
                                     <input type="submit" value="order">
 <!--                                    <div th:if="${#fields.hasErrors('cruise.id')}" th:errors="*{cruise.id}" class="invalidFeedback" th:name="errorWithOrder1"></div>-->
                             </td>
+                        </form>
 <!--                        <tr class="cells">-->
 <!--                            <td style="width:100%;text-align: center; margin-left: auto; margin-right: auto;" colspan="5">-->
 <!--                                <p><span th:text="${cruise.description}"> description</span></p>-->
 <!--                            </td>-->
 <!--                        </tr>-->
                     </tr>
-                    </form>
+
                     </tbody>
                 </table>
             </div>

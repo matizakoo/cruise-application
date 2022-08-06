@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class IndexController {
-    @GetMapping("/index")
-    public String index(@ModelAttribute UserLoginDTO userLoginDTO, Model model) {
+    @GetMapping("/")
+    public String index(@ModelAttribute UserLoginDTO userLoginDTO, Model model, HttpSession session) {
         model.addAttribute("userDTO", userLoginDTO);
         Logger logger = LoggerFactory.getLogger("Connects with /index");
+        logger.info(session.getId());
         logger.info("connected with /index");
         return "index";
     }
