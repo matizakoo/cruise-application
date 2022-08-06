@@ -39,13 +39,12 @@
                     </tr>
                     </thead>
                     <tbody>
-
-                    <tr th:if="${cruises.empty}">
-                        <td colspan="2"> No cruise avaliable :( </td>
-                    </tr>
+<!--                    <tr th:if="${cruises.empty}">-->
+<!--                        <td colspan="2"> No cruise avaliable :( </td>-->
+<!--                    </tr>-->
                     <tr th:each="cruise : ${cruises}">
                         <form method="post" th:action="@{/makeOrder}" th:object="${cruise}" name="formOrder">
-                            <td><span th:text="${cruise.nameOfCruise}"> nameOfCruise </span></td>
+                            <td><span th:text="${cruise.nameOfCruise}" th:field="${cruise.nameOfCruise}"> nameOfCruise </span></td>
                             <td><span th:text="${cruise.id}"> id </span></td>
                             <td><span th:text="${cruise.date}"> date </span></td>
                             <td><span th:text="${cruise.cost}"> cost </span></td>
