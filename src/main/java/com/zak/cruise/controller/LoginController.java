@@ -59,7 +59,7 @@ public class LoginController {
     public String login(@ModelAttribute LoginCredentialsDto credentials, Model model){
         model.addAttribute("credentials", credentials);
         logger.info("Connected with /loginx getmapping");
-        return "loginx";
+        return "login";
     }
 
 //    @PostMapping("/loginx")

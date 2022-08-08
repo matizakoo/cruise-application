@@ -1,8 +1,12 @@
 package com.zak.cruise.controller;
 
 import com.zak.cruise.dto.UserDTO;
+import com.zak.cruise.entity.User;
+import com.zak.cruise.service.impl.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +22,14 @@ import javax.validation.Valid;
 @Controller
 public class UserProfileController {
     Logger logger = LoggerFactory.getLogger("Profile checker B)");
-    @GetMapping("profile")
-    public String getUserProfile(@ModelAttribute("userDTO") UserDTO userDTO, Model model, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute("username", userDTO.getUsername());
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/profile")
+    public String getProfile(Model model){
+        final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserDetails(currentLogin).get();
+        model.addAttribute("user", user);
         return "profile";
     }
 }

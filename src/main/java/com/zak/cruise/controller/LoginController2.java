@@ -9,6 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController2 {
     @PostMapping("/loginx")
     public void login(LoginCredentialsDto credentials) {
-
     }
 }

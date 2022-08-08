@@ -51,6 +51,7 @@ public class AccountController {
         Logger logger = LoggerFactory.getLogger("Connects with /register");
         logger.info("Tries to register user " + userDTO.toString());
         UserValidator userValidator = new UserValidator();
+        //change login -> username
         if(userRepository.findByLogiin(userDTO.getLogin()) != 0 || !userValidator.checkLogin(userDTO.getLogin())){
             logger.info("logger faild login " + userDTO.getLogin());
             if(!userValidator.checkLogin(userDTO.getLogin())){
@@ -60,17 +61,18 @@ public class AccountController {
             }
         }
 
+        //change username -> login
+        if(userDTO.getUsername() == null){
+            logger.info("logger faild name " + userDTO.getLogin());
+            bindingResult.addError(new FieldError("userDTO", "username",
+                    "Invalid name"));
+        }
+
         //check if password is valid SUCCESS!!:)
         if(userDTO.getPassword()==null || !userValidator.validatePassword(userDTO.getPassword())) {
             logger.info("logger faild password " + userDTO.getPassword());
             bindingResult.addError(new FieldError("userDTO", "password",
                     "Invalid password"));
-        }
-
-        if(userDTO.getUsername() == null){
-            logger.info("logger faild name " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "username",
-                    "Invalid name"));
         }
 
         if(userDTO.getSurname() == null){

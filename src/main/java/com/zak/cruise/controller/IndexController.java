@@ -16,12 +16,6 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
     @GetMapping("/")
     public String index(@ModelAttribute UserLoginDTO userLoginDTO, Model model, HttpSession session, HttpServletRequest request) {
-        String user=request.getUserPrincipal().getName();
-        model.addAttribute("userDTO", userLoginDTO);
-        Logger logger = LoggerFactory.getLogger("Connects with /index");
-        logger.info(session.getId());
-        logger.info("User: " + user);
-        logger.info("connected with /index");
         return "index";
     }
 }

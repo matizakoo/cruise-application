@@ -1,0 +1,20 @@
+<div th:fragment="navbar" class="nav">
+    <a th:href="@{/}" class="home">
+        HOME
+    </a>
+    <div th:if="!${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/register}">Register</a>
+    </div>
+    <div th:if="!${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/login}">Login</a>
+    </div>
+    <div th:if="${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+    <div class="basicButton">
+        <a th:href="@{/dawaj}">Cruise</a>
+    </div>
+    <div th:if="${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/profile}">Profile</a>
+    </div>
+</div>

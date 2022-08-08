@@ -9,22 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav">
-            <a th:href="@{/}" class="home">
-                HOME
-            </a>
-            <div class="basicButton">
-                <a th:href="@{/register}">Register</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/loginx}">Login</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/dawaj}">Cruise</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/profile}">Profile</a>
-            </div>
+        <div th:replace="../static/topnav :: navbar">
         </div>
         <div class="body">
             <div class="contentoftable">
@@ -55,17 +40,16 @@
                                 <span>
                                     Interested?
                                 </span>
+                                <div th:if="${#request.userPrincipal}">
                                     <input type="submit" value="order">
-<!--                                    <div th:if="${#fields.hasErrors('cruise.id')}" th:errors="*{cruise.id}" class="invalidFeedback" th:name="errorWithOrder1"></div>-->
+                                </div>
+                                <div th:if="!${#request.userPrincipal}">
+                                    <!-- content for anonymous -->
+                                    <a th:href="@{/login}" style="color: cadetblue">SIGN IN TO ORDER </a>
+                                </div>
                             </td>
                         </form>
-<!--                        <tr class="cells">-->
-<!--                            <td style="width:100%;text-align: center; margin-left: auto; margin-right: auto;" colspan="5">-->
-<!--                                <p><span th:text="${cruise.description}"> description</span></p>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                     </tr>
-
                     </tbody>
                 </table>
             </div>

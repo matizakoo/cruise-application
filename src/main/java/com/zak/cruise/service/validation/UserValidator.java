@@ -1,6 +1,7 @@
 package com.zak.cruise.service.validation;
 
 import com.zak.cruise.entity.User;
+import com.zak.cruise.repository.UserRepository;
 import com.zak.cruise.service.Exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator implements ValidationService{
+    @Autowired
+    UserRepository userRepository;
     Logger logger = LoggerFactory.getLogger("validation");
     private Regex regex = new Regex();
     private Pattern pattern;
@@ -44,6 +47,8 @@ public class UserValidator implements ValidationService{
     @Override
     public boolean checkLogin(String login) {
         logger.info("Tries to validate login");
+        if(userRepository.ifLoginExists(login) != 0)
+            return false;
         if(login == null)
             return false;
         pattern = Pattern.compile(regex.loginValidation);

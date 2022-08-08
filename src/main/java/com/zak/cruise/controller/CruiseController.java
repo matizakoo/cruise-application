@@ -18,6 +18,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,12 +72,10 @@ public class CruiseController {
 //    public String order(@RequestParam(name = "cruise.nameOfCruise", required=false) String model) throws JsonProcessingException {
 //    public String order(@ModelAttribute("cruise") Cruise cruise, Model model){ // wersja romana i nawet mi sie podoba
     public String order(@RequestParam(name = "cruiseid", required = false) Long id){
+        final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Cruise cruise = cruiseService.getCruiseDetails(id); //smiga
         Status status = new Status().defaultStatus();
-        User user = userService.getUserByDetails("zegar123@wp.pl");
-        logger.info("Cruise id: "+cruise.getId());
-        logger.info("Status id: "+status.getId());
-        logger.info("User id: "+user.getId());
+        User user = userService.getUserDetails(currentLogin).get();
         orderService.save(cruise, status, user);
         return "cruise";
     }

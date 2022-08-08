@@ -9,30 +9,39 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav">
-            <a th:href="@{/}" class="home">
-                HOME
-            </a>
-            <div class="basicButton">
-                <a th:href="@{/register}">Register</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/loginx}">Login</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/dawaj}">Cruise</a>
-            </div>
-            <div class="basicButton">
-                <a th:href="@{/profile}">Profile</a>
-            </div>
+        <div th:replace="../static/topnav :: navbar">
         </div>
         <div class="body">
             <div class="inBody">
-                    <p th:text="${username}" th:unless="${session == null}"> . </p>
+                <div class="inBody2">
+                    <p>Username</p>
+                    <p th:text="${user.getUsername()}"></p>
+                    <p>Surname</p>
+                    <p th:text="${user.getSurname()}"></p>
+                </div>
+                <div class="inBody2">
+                    <p>Username</p>
+                    <p th:text="${user.getUsername()}"></p>
+                    <p>Surname</p>
+                    <p th:text="${user.getSurname()}"></p>
+                </div>
+            </div>
+            <div class="inBody">
+                <div class="inBody2">
+                    <p>Email</p>
+                    <p th:text="${user.getEmail()}"></p>
+                    <p>Phone number</p>
+                    <p th:text="${user.getPhoneNumber()}"></p>
+                </div>
+                <div class="inBody2">
+                    <p>Country</p>
+                    <p th:text="${user.getCountry()}"></p>
+                    <p>City</p>
+                    <p th:text="${user.getCity()}"></p>
+                </div>
             </div>
         </div>
         <div class="footer">
-        
         </div>
     </div>
 </body>

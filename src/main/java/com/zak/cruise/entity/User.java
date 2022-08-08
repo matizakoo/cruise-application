@@ -56,6 +56,7 @@ public class User {
     @NotNull
     private String login;
     //the role is first by default (1 - guest, 2 - moderator, 3 - admin)
+
     private boolean active = true;
 
 //    @OneToOne(fetch = FetchType.EAGER)

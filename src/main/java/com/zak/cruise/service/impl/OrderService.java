@@ -30,9 +30,9 @@ public class OrderService {
     @Transactional
     public void save(Cruise cruise, Status status, User user){
         Order order = new Order(cruise, status, user);
-        logger.info(""+order.getCruise().getId());
-        logger.info(""+order.getStatus().getId());
-        logger.info(""+order.getUser().getId());
+        logger.info("Creating order for cruise id: "+order.getCruise().getId()
+                + ", status id: " + order.getStatus().getId()
+                + ", user id: " + user.getId());
         orderRepository.saveOrder(cruise.getId(), status.getId(), user.getId());
     }
 }

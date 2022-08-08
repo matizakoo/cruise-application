@@ -14,6 +14,22 @@
     color: red;
     margin-left: 15%;
 }
+.inBody{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+}
+
+.inBody2{
+    width: 40%;
+    height: auto;
+    margin: 1%;
+    background-color: aqua;
+    display: block;
+    float: left;
+    padding: 15px;
+}
 
 .basicButton{
     /* background-color: rgb(251, 236, 234); */

@@ -55,7 +55,7 @@ public class UserService {
         return save(user);
     }
 
-    public User getUserByDetails(String email){
-        return userRepository.findByEmail(email);
+    public Optional<User> getUserDetails(String login){
+        return userRepository.findByLogin(login);
     }
 }
