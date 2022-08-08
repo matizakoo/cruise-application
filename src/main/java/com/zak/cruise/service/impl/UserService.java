@@ -54,4 +54,8 @@ public class UserService {
         logger.info("Success");
         return save(user);
     }
+
+    public User getUserByDetails(String email){
+        return userRepository.findByEmail(email);
+    }
 }

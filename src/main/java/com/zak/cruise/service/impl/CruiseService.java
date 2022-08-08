@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CruiseService {
@@ -18,5 +19,10 @@ public class CruiseService {
 
     public List<Cruise> findAllCruises() {
         return (List<Cruise>) cruiseRepository.findAll();
+    }
+
+    public Cruise getCruiseDetails(Long id){
+        Optional<Cruise> cruiseResponse = cruiseRepository.findById(id);
+        return cruiseResponse.get();
     }
 }

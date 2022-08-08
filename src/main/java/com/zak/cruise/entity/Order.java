@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Order {
     @Id
     @Column(name = "idstatus")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne
@@ -24,7 +24,7 @@ public class Order {
     @JoinColumn(name = "status_id_status")
     private Status status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_iduser")
     private User user;
 
