@@ -18,6 +18,10 @@ public class OrderService {
     Logger logger = LoggerFactory.getLogger("Order");
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    CruiseService cruiseService;
+    @Autowired
+    UserService userService;
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -27,12 +31,21 @@ public class OrderService {
 //    public void save(Cruise cruise, Status status, User user){
 //        orderRepository.saveOrder(cruise.getId(), status.getId(), user.getId());
 //    }
+
     @Transactional
-    public void save(Cruise cruise, Status status, User user){
+    public void saveOrder(Long cruiseid, Long statusid, Integer userid){
+        orderRepository.saveOrder(cruiseid, statusid, userid);
+    }
+
+    public void save(Long id, String currentLogin){
+        Cruise cruise = cruiseService.getCruiseDetails(id); //smiga
+        Status status = new Status().defaultStatus();
+        User user = userService.getUserDetails(currentLogin).get();
+
         Order order = new Order(cruise, status, user);
         logger.info("Creating order for cruise id: "+order.getCruise().getId()
                 + ", status id: " + order.getStatus().getId()
                 + ", user id: " + user.getId());
-        orderRepository.saveOrder(cruise.getId(), status.getId(), user.getId());
+        saveOrder(cruise.getId(), status.getId(), user.getId());
     }
 }

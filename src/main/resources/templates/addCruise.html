@@ -21,7 +21,7 @@
                     <div class="inputValues">
                         cost
                     </div>
-                    <input type="text" th:field="*{cost}" th:errorclass="is-valid" th:name="errorWithLogin">
+                    <input type="number" th:field="*{cost}" th:errorclass="is-valid" th:name="errorWithLogin">
                     <div th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}" class="invalidFeedback" th:name="errorWithCost1"></div>
 
                     <div class="inputValues">
@@ -33,7 +33,7 @@
                     <div class="inputValues">
                         duration
                     </div>
-                    <input type="text" th:field="*{duration}" th:errorclass="is-valid" th:name="errorWithDuration">
+                    <input type="number" th:field="*{duration}" th:errorclass="is-valid" th:name="errorWithDuration">
                     <div th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="invalidFeedback" th:name="errorWithDuration1"></div>
 
                     <div class="inputValues">
@@ -45,19 +45,19 @@
                     <div class="inputValues">
                         number of seats
                     </div>
-                    <input type="text" th:field="*{numberOfSeats}" th:errorclass="is-valid" th:name="errorWithNumberOfSeats">
+                    <input type="number" th:field="*{numberOfSeats}" th:errorclass="is-valid" th:name="errorWithNumberOfSeats">
                     <div th:if="${#fields.hasErrors('numberOfSeats')}" th:errors="*{numberOfSeats}" class="invalidFeedback" th:name="errorWithNumberOfSeats1"></div>
 
                     <div class="inputValues">
                         route (id)
                     </div>
-                    <input type="text" th:field="*{route}" th:errorclass="is-valid" th:name="errorWithRoute">
+                    <input type="number" th:field="*{route}" th:errorclass="is-valid" th:name="errorWithRoute">
                     <div th:if="${#fields.hasErrors('route')}" th:errors="*{route}" class="invalidFeedback" th:name="errorWithRoute1"></div>
 
                     <div class="inputValues">
                         ship (id)
                     </div>
-                    <input type="text" th:field="*{ship}" th:errorclass="is-valid" th:name="errorWithShip">
+                    <input type="number" th:field="*{ship}" th:errorclass="is-valid" th:name="errorWithShip">
                     <div th:if="${#fields.hasErrors('ship')}" th:errors="*{ship}" class="invalidFeedback" th:name="errorWithShip1"></div>
 
                     <div class="inputValues">

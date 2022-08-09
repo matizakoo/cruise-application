@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,10 +31,7 @@ public class CruiseController {
     private OrderRepository orderRepository;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private RouteRepository routeRepository;
-    @Autowired
-    private ShipRepository shipRepository;
+
     @Autowired
     private CruiseRepository cruiseRepository;
     @Autowired
@@ -44,12 +42,10 @@ public class CruiseController {
     public CruiseController() {
     }
 
-    public CruiseController(CruiseService cruiseService, OrderRepository orderRepository, UserRepository userRepository, RouteRepository routeRepository, ShipRepository shipRepository, CruiseRepository cruiseRepository, UserService userService, OrderService orderService) {
+    public CruiseController(CruiseService cruiseService, OrderRepository orderRepository, UserRepository userRepository, CruiseRepository cruiseRepository, UserService userService, OrderService orderService) {
         this.cruiseService = cruiseService;
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
-        this.routeRepository = routeRepository;
-        this.shipRepository = shipRepository;
         this.cruiseRepository = cruiseRepository;
         this.userService = userService;
         this.orderService = orderService;
@@ -69,10 +65,7 @@ public class CruiseController {
 //    public String order(@ModelAttribute("cruise") Cruise cruise, Model model){ // wersja romana i nawet mi sie podoba
     public String order(@RequestParam(name = "cruiseid", required = false) Long id){
         final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
-        Cruise cruise = cruiseService.getCruiseDetails(id); //smiga
-        Status status = new Status().defaultStatus();
-        User user = userService.getUserDetails(currentLogin).get();
-        orderService.save(cruise, status, user);
+        orderService.save(id, currentLogin);
         return "cruise";
     }
 
@@ -92,22 +85,7 @@ public class CruiseController {
 //                "  duration : " + cruiseDTO.getDuration() +
 //                "  route : " + cruiseDTO.getRoute() +
 //                "  ship : " + cruiseDTO.getShip());
-        if(cruiseDTO.getNameOfCruise() == null)
-            bindingResult.addError(new FieldError("cruiseDTO", "nameOfCruise", "Invalid nameOfCruise"));
-        if(cruiseDTO.getDate() == null)
-            bindingResult.addError(new FieldError("cruiseDTO", "date", "Invalid date"));
-        if(cruiseDTO.getTime() == null)
-            bindingResult.addError(new FieldError("cruiseDTO", "time", "Invalid time"));
-        if(cruiseDTO.getCost()<1)
-            bindingResult.addError(new FieldError("cruiseDTO", "cost", "Invalid cost"));
-        if(cruiseDTO.getDuration()<1)
-            bindingResult.addError(new FieldError("cruiseDTO", "duration", "Invalid duration"));
-        if(!routeRepository.existsById((long) cruiseDTO.getShip()))
-            bindingResult.addError(new FieldError("cruiseDTO", "route", "Invalid route. Route probably doesn't exists"));
-        if(!shipRepository.existsById((long) cruiseDTO.getShip()))
-            bindingResult.addError(new FieldError("cruiseDTO", "ship", "Invalid ship. Ship probably doesn't exists"));
-        if(cruiseDTO.getTime() == null)
-            bindingResult.addError(new FieldError("cruiseDTO", "ship", "Invalid ship. Ship probably doesn't exists"));
+        cruiseService.addCruiseService(cruiseDTO, bindingResult);
         if(bindingResult.hasErrors()){
             logger.info("Creating new cruise failed");
             return "addCruise";
