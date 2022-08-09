@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "cruise")
@@ -24,7 +26,7 @@ public class Cruise {
     private LocalDate date;
 
     @Column(name = "time")
-    private Time time;
+    private LocalTime time;
 
     @Column(name = "cost")
     private int cost;
@@ -43,13 +45,10 @@ public class Cruise {
     @JoinColumn(name = "ship_id_ship")
     private Ship ship;
 
-    @Column(name = "description")
-    private String description;
-
     public Cruise() {
     }
 
-    public Cruise(String nameOfCruise, LocalDate date, Time time, int cost, int numberOfSeats, int duration, Route route, Ship ship, String description) {
+    public Cruise(String nameOfCruise, LocalDate date, LocalTime time, int cost, int numberOfSeats, int duration, Route route, Ship ship) {
         this.nameOfCruise = nameOfCruise;
         this.date = date;
         this.time = time;
@@ -58,6 +57,5 @@ public class Cruise {
         this.duration = duration;
         this.route = route;
         this.ship = ship;
-        this.description = description;
     }
 }

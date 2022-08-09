@@ -57,15 +57,10 @@ public class User {
     private String login;
     //the role is first by default (1 - guest, 2 - moderator, 3 - admin)
 
-    private boolean active = true;
+    @Column(name = "photos_image_path")
+    private String photo;
 
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "role",
-//            joinColumns = {@JoinColumn(name="idrole")},
-//            inverseJoinColumns = {@JoinColumn(name="role")}
-//    )
-//    private List<Role> roles = new ArrayList<>();
+    private boolean active = true;
 
     public User() {
     }
@@ -93,11 +88,11 @@ public class User {
     public boolean isActive() {
         return active;
     }
+    @Transient
+    public String getPhotosImagePath() {
+        if (photo == null || id == null)
+            return null;
 
-//    public Arrays getRoles() {
-//        RoleRepository roleRepository = null;
-//        Role role1 = new Role();
-//        ArrayList<Role> role =  roleRepository.findAll();
-//        return (Arrays) Arrays.asList(role);
-//    }
+        return "/user-photos/" + id + "/" + photo;
+    }
 }

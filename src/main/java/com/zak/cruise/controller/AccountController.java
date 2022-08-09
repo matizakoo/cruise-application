@@ -132,6 +132,7 @@ public class AccountController {
 //        redirectAttributes.addFlashAttribute("message", "Succes!");
 
         userService.register(userDTO);
+
         return "loginx";
     }
 }

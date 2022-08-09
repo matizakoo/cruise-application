@@ -20,10 +20,15 @@
                     <p th:text="${user.getSurname()}"></p>
                 </div>
                 <div class="inBody2">
-                    <p>Username</p>
-                    <p th:text="${user.getUsername()}"></p>
-                    <p>Surname</p>
-                    <p th:text="${user.getSurname()}"></p>
+                    <div th:if="${user.getPhoto() == null}">
+                        <form method="post" th:action="@{/uploadPhoto}" enctype="multipart/form-data">
+                            <input type="file" name="file" accept="image/png, image/gif, image/jpeg" th:attr="name = 'photo'">
+                            <input type="submit" style="width: 50%;margin-left:auto;margin-right:auto;" value="Upload photo">
+                        </form>
+                    </div>
+                    <div th:if="${user.getPhoto() != null}">
+                        <img th:src="@{/${user.getPhotosImagePath()}}" width="100%" height="100%"/>
+                    </div>
                 </div>
             </div>
             <div class="inBody">

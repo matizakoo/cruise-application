@@ -23,12 +23,20 @@
 
 .inBody2{
     width: 40%;
-    height: auto;
+    height: 150px;
     margin: 1%;
-    background-color: aqua;
+    background-color: #e7dfdd;
     display: block;
     float: left;
     padding: 15px;
+}
+
+.inBody2 > form {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .basicButton{
@@ -73,7 +81,7 @@
     width: auto;
     height: auto;
     padding: 5px;;
-    background-color:deepskyblue;
+    background-color: #e7dfdd;
 }
 
 input{

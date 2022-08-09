@@ -13,7 +13,7 @@ public class Route {
     @Id
     @Column(name = "id_route")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column(name = "start_place")
     private String startPlace;

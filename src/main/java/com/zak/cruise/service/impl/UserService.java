@@ -13,8 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -40,9 +42,7 @@ public class UserService {
         ChangeWordsService change = new ChangeWordsService();
 //        BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
 //        String password = crypt.encode(userDTO.getPassword());
-//        String newPassword = passwordEncoder.encode(userDTO.getPassword());
         userDTO.setPassword(userDTO.getPassword());
-//        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setLogin(change.changeLogin(userDTO.getLogin()));
         userDTO.setUsername(change.changeName(userDTO.getUsername()));
         userDTO.setSurname(change.changeSurname(userDTO.getSurname()));
@@ -57,5 +57,15 @@ public class UserService {
 
     public Optional<User> getUserDetails(String login){
         return userRepository.findByLogin(login);
+    }
+
+    public void uploadPhoto(String photo, User user){
+        user.setPhoto(photo);
+        userRepository.save(user);
+    }
+
+    public void createDirectory(MultipartFile multipartFile,String fileName,User user) throws IOException {
+        String uploadDir = "user-photos/" + user.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
     }
 }

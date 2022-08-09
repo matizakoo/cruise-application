@@ -17,4 +17,7 @@
     <div th:if="${#request.userPrincipal}" class="basicButton">
         <a th:href="@{/profile}">Profile</a>
     </div>
+    <div th:if="${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/addCruise}">Add new cruise</a>
+    </div>
 </div>

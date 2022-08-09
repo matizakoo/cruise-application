@@ -85,7 +85,9 @@
                 <input type="text" name="documentId" th:field="*{documentId}" th:errorclass="is-valid" th:name="errorWithDocumentId1">
                 <div th:if="${#fields.hasErrors('documentId')}" th:errors="*{documentId}" class="invalidFeedback" th:name="errorWitbDocumentId"></div>
 
-                <input type="submit" style="width: 50%;margin-left:auto;margin-right:auto;">
+                <div class="inputValues">
+                    <input type="submit" style="width: 50%;margin-left:auto;margin-right:auto;" value="ADD CRUISE">
+                </div>
             </form>
         </div>
     </div>

@@ -16,6 +16,6 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Modifying
     @Transactional
 //    @Query(value = "INSERT INTO order(cruise_id_cruise, status_id_status, user_iduser) VALUES cruise_id_cruise=:idcruise,status_id_status=:idstatus,user_iduser=:iduser", nativeQuery = true)
-    @Query(value = "INSERT INTO Cruise.order(cruise_id_cruise, status_id_status, user_iduser) VALUES (:idcruise, :idstatus, :iduser)" , nativeQuery = true)
+    @Query(value = "INSERT INTO Cruise.order(cruise_id_cruise, status_id_status, user_iduser) VALUES (:idcruise, :idstatus, :iduser)", nativeQuery = true)
     void saveOrder(Long idcruise, Long idstatus, Integer iduser);
 }

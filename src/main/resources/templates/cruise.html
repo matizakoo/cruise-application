@@ -15,22 +15,23 @@
             <div class="contentoftable">
                 <table class="cruiselist">
                     <thead>
-                    <tr>
-                        <th> Cruise </th>
-                        <th> date </th>
-                        <th> cost </th>
-                        <th> start </th>
-                        <th> finish </th>
-                    </tr>
+
                     </thead>
                     <tbody>
 <!--                    <tr th:if="${cruises.empty}">-->
 <!--                        <td colspan="2"> No cruise avaliable :( </td>-->
 <!--                    </tr>-->
+                    <tr>
+                        <td> Cruise </td>
+                        <td> date </td>
+                        <td> cost </td>
+                        <td> start </td>
+                        <td> finish </td>
+                    </tr>
                     <tr th:each="cruise : ${cruises}">
                         <form method="post" th:action="@{/makeOrder}" th:object="${cruiseDTO}" name="formOrder" modelAttribute="cruise">
                             <td><span th:text="${cruise.nameOfCruise}" th:field="${cruise.nameOfCruise}"> nameOfCruise </span></td>
-                            <td><span th:text="${cruise.id}" th:field="${cruise.id}"> id </span></td>
+<!--                            <td><span th:text="${cruise.id}" th:field="${cruise.id}"> id </span></td>-->
                             <td><span th:text="${cruise.date}"> date </span></td>
                             <td><span th:text="${cruise.cost}"> cost </span></td>
                             <td><span th:text="${cruise.route.startPlace}"> start </span></td>
