@@ -52,7 +52,7 @@ public class UserService {
         User user = new User();
         modelMapper.map(userDTO, user);
 
-        logger.info("Success");
+        logger.info("Success registration");
         return save(user);
     }
 

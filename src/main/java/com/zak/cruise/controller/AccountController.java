@@ -23,7 +23,7 @@ public class AccountController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserRepository userRepository;
+    private UserValidator userValidator;
 
     @Autowired
     public AccountController(){
@@ -45,92 +45,16 @@ public class AccountController {
 
 //    @PostMapping("/register")
     @PostMapping("/register")
-    public String save(@Valid UserDTO userDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String save(@Valid UserDTO userDTO, BindingResult bindingResult){
         Logger logger = LoggerFactory.getLogger("Connects with /register");
         logger.info("Tries to register user " + userDTO.toString());
-        UserValidator userValidator = new UserValidator();
-        //change login -> username
-        if(userRepository.findByLogin(userDTO.getLogin()).isPresent() || !userValidator.checkLogin(userDTO.getLogin())){
-            logger.info("logger faild login " + userDTO.getLogin());
-            if(!userValidator.checkLogin(userDTO.getLogin())){
-                bindingResult.addError(new FieldError("userDTO", "login", "Invalid login"));
-            }else {
-                bindingResult.addError(new FieldError("userDTO", "login", "Login already exists"));
-            }
-        }
-
-        //change username -> login
-        if(userDTO.getUsername() == null){
-            logger.info("logger faild name " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "username",
-                    "Invalid name"));
-        }
-
-        //check if password is valid SUCCESS!!:)
-        if(userDTO.getPassword()==null || !userValidator.validatePassword(userDTO.getPassword())) {
-            logger.info("logger faild password " + userDTO.getPassword());
-            bindingResult.addError(new FieldError("userDTO", "password",
-                    "Invalid password"));
-        }
-
-        if(userDTO.getSurname() == null){
-            logger.info("logger faild surname " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "surname",
-                    "Invalid surname"));
-        }
-
-        if(userRepository.findByEmailz(userDTO.getEmail()) != 0 || !userValidator.checkEmail(userDTO.getEmail())){
-            logger.info("logger faild email " + userDTO.getLogin());
-            if(!userValidator.checkEmail(userDTO.getEmail())){
-                bindingResult.addError(new FieldError("userDTO", "email", "Invalid email"));
-            }else{
-                bindingResult.addError(new FieldError("userDTO", "email", "Email already exists"));
-            }
-        }
-
-        if(!userValidator.checkPhoneNumber(userDTO.getPhoneNumber())){
-            logger.info("logger faild phone number " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "phoneNumber", "Invalid phone number"));
-        }
-
-        if(userDTO.getCountry() == null || userDTO.getCountry().length() < 4){
-            logger.info("logger faild country " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "country",
-                    "Invalid country"));
-        }
-
-        if(userDTO.getCity() == null){
-            logger.info("logger faild city " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "city",
-                    "Invalid city"));
-        }
-
-        if(userDTO.getAddress() == null){
-            logger.info("logger faild address " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "address",
-                    "Invalid address"));
-        }
-
-        if(!userValidator.checkZipCodeFormat(userDTO.getZipCode())){
-            logger.info("logger faild zip code " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "zipCode",
-                    "Invalid zipCode"));
-        }
-
-        if(!userValidator.checkDocumentId(userDTO.getDocumentId())){
-            logger.info("logger faild document id " + userDTO.getLogin());
-            bindingResult.addError(new FieldError("userDTO", "documentId",
-                    "Invalid documentId"));
-        }
-
+        userValidator.validation(userDTO, bindingResult);
         if(bindingResult.hasErrors()){
             logger.info("Registering faild ");
             return "register";
         }
-//        redirectAttributes.addFlashAttribute("message", "Succes!");
-
         userService.register(userDTO);
 
-        return "/";
+        return "redirect:/login";
     }
 }
