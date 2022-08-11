@@ -23,11 +23,10 @@ public class AccountController {
     @Autowired
     private UserService userService;
     @Autowired
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AccountController(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public AccountController(){
     }
 
     @InitBinder
@@ -132,6 +131,6 @@ public class AccountController {
 
         userService.register(userDTO);
 
-        return "loginx";
+        return "/";
     }
 }

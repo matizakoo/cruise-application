@@ -26,6 +26,16 @@ public class UserValidator implements ValidationService{
     }
 
     @Override
+    public boolean checkLogin(String login) {
+        logger.info("Tries to validate login");
+        if(login == null)
+            return false;
+        pattern = Pattern.compile(regex.loginValidation);
+        matcher = pattern.matcher(login);
+        return matcher.matches();
+    }
+
+    @Override
     public boolean checkName(String name) {
         logger.info("Tries to validate name");
         if(name == null)
@@ -47,18 +57,6 @@ public class UserValidator implements ValidationService{
         pattern = Pattern.compile(regex.passwordValidation);
         matcher = pattern.matcher(password);
         return matcher.matches(); //todo: check it
-    }
-
-    @Override
-    public boolean checkLogin(String login) {
-        logger.info("Tries to validate login");
-        if(userRepository.ifLoginExists(login) != 0)
-            return false;
-        if(login == null)
-            return false;
-        pattern = Pattern.compile(regex.loginValidation);
-        matcher = pattern.matcher(login);
-        return matcher.matches();
     }
 
     @Override
