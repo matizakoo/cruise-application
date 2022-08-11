@@ -42,7 +42,12 @@
                                     Interested?
                                 </span>
                                 <div th:if="${#request.userPrincipal}">
-                                    <input type="submit" value="order">
+                                    <div th:if="${isPhotoIncluded}">
+                                        <input type="submit" value="order">
+                                    </div>
+                                    <div th:if="${!isPhotoIncluded}">
+                                        <a th:href="@{/profile}">Upload your photo firsly</a>
+                                    </div>
                                 </div>
                                 <div th:if="!${#request.userPrincipal}">
                                     <!-- content for anonymous -->

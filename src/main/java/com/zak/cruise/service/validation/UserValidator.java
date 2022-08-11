@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.metadata.ManagedAttribute;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class UserValidator implements ValidationService{
     @Autowired
     UserRepository userRepository;
@@ -19,6 +21,9 @@ public class UserValidator implements ValidationService{
     private Regex regex = new Regex();
     private Pattern pattern;
     private Matcher matcher;
+
+    public UserValidator() {
+    }
 
     @Override
     public boolean checkName(String name) {

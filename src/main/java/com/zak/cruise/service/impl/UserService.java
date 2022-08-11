@@ -26,6 +26,7 @@ public class UserService {
     private final ModelMapper modelMapper;
 //    private final DelegatingPasswordEncoder passwordEncoder;
     private final BCryptPasswordEncoder passwordEncoder;
+    Logger logger = LoggerFactory.getLogger("Connects with /register");
 
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper, /*DelegatingPasswordEncoder*/BCryptPasswordEncoder passwordEncoder) {
@@ -50,7 +51,7 @@ public class UserService {
         userDTO.setCity(change.changeCity(userDTO.getCity()));
         User user = new User();
         modelMapper.map(userDTO, user);
-        Logger logger = LoggerFactory.getLogger("Connects with /register");
+
         logger.info("Success");
         return save(user);
     }
@@ -67,5 +68,13 @@ public class UserService {
     public void createDirectory(MultipartFile multipartFile,String fileName,User user) throws IOException {
         String uploadDir = "user-photos/" + user.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+    }
+
+    public boolean isPhotoSet(String login){
+        if(userRepository.findByLogin(login).isPresent() &&
+                userRepository.findByLogin(login).get().getPhoto() != null){
+            return true;
+        }
+        return false;
     }
 }

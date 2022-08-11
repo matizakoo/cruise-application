@@ -54,15 +54,15 @@ public class CruiseController {
     @GetMapping("/dawaj")
     public String showAll(Model model) {
         List<Cruise> cruise = cruiseService.findAllCruises();
+        final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isPhotoIncluded = userService.isPhotoSet(currentLogin);
         model.addAttribute("cruises", cruise);
+        model.addAttribute("isPhotoIncluded", isPhotoIncluded);
+        logger.info("isPhotoIncluded: " + isPhotoIncluded);
         return "cruise";
     }
 
-//    @PostMapping("/makeOrder")
-//    public String order(/*Model or sth mozna tez wyjebac cruise i model, cos tam roman mowil*//*@ModelAttribute Cruise cruise, User user,*/ /*@ModelAttribute Model model*/ /*, BindingResult bindingResult*/){
     @PostMapping(value = "/makeOrder")
-//    public String order(@RequestParam(name = "cruise.nameOfCruise", required=false) String model) throws JsonProcessingException {
-//    public String order(@ModelAttribute("cruise") Cruise cruise, Model model){ // wersja romana i nawet mi sie podoba
     public String order(@RequestParam(name = "cruiseid", required = false) Long id){
         final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         orderService.save(id, currentLogin);
