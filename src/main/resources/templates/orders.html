@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise app</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div th:replace="../static/topnav :: navbar">
+        </div>
+        <div class="body">
+            <div class="contentoftable">
+                <table class="cruiselist">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+<!--                    <tr th:if="${cruises.empty}">-->
+<!--                        <td colspan="2"> No cruise avaliable :( </td>-->
+<!--                    </tr>-->
+                    <tr>
+                        <td> Name of cruise </td>
+                        <td> Cruise  id </td>
+                        <td> User email </td>
+                        <td> User id </td>
+                        <td> Status name </td>
+                        <td> order id </td>
+                        <td> Confirm cruise </td>
+                    </tr>
+                    <tr th:each="orders : ${orders}">
+                        <form method="post" th:action="@{/listOfOrders}" th:object="${orderDTO}" name="formOrder" modelAttribute="cruise">
+                            <td><span th:text="${orders.cruise.nameOfCruise}" > nane of cruise </span></td>
+                            <td><span th:text="${orders.cruise.id}" > cruise id </span></td>
+                            <td><span th:text="${orders.user.email}"> user email </span></td>
+                            <td><span th:text="${orders.user.id}"> user id </span></td>
+
+                            <td th:if="${orders.status.id == 1}">
+                                <span style="color: red" th:text="${orders.status.status_name}"> status name </span>
+                            </td>
+                            <td th:if="${orders.status.id == 2}">
+                                <span style="color: green" th:text="${orders.status.status_name}"> status name </span>
+                            </td>
+
+                            <td><span th:text="${orders.id}"> order id </span></td>
+                            <td>
+                                <input th:if="${orders.status.id == 1}" type="submit" value="confirm trip" style="width: auto">
+                            </td>
+                            <td style="visibility: hidden"><input  type="hidden" th:value="${orders.id}" th:attr="name = 'orderid'"></td>
+
+<!--                            <td><input  type="hidden" th:value="${cruise.id}" th:attr="name = 'cruiseid'"></td>-->
+                        </form>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="footer">
+        
+        </div>
+    </div>
+</body>
+</html>

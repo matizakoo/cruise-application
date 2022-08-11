@@ -2,11 +2,8 @@ package com.zak.cruise.controller;
 
 import com.zak.cruise.dto.CruiseDTO;
 import com.zak.cruise.entity.Cruise;
-import com.zak.cruise.entity.Status;
-import com.zak.cruise.entity.User;
-import com.zak.cruise.repository.*;
 import com.zak.cruise.service.impl.CruiseService;
-import com.zak.cruise.service.impl.OrderService;
+import com.zak.cruise.service.impl.OrdersService;
 import com.zak.cruise.service.impl.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,45 +24,58 @@ public class CruiseController {
     @Autowired
     private CruiseService cruiseService;
     @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CruiseRepository cruiseRepository;
-    @Autowired
     private UserService userService;
     @Autowired
-    private OrderService orderService;
+    private OrdersService orderService;
 
     public CruiseController() {
     }
 
-    public CruiseController(CruiseService cruiseService, OrderRepository orderRepository, UserRepository userRepository, CruiseRepository cruiseRepository, UserService userService, OrderService orderService) {
+    public CruiseController(CruiseService cruiseService, UserService userService, OrdersService orderService) {
         this.cruiseService = cruiseService;
-        this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
-        this.cruiseRepository = cruiseRepository;
         this.userService = userService;
         this.orderService = orderService;
     }
 
-    @GetMapping("/dawaj")
+    @GetMapping("/cruise")
     public String showAll(Model model) {
-        List<Cruise> cruise = cruiseService.findAllCruises();
+//        List<Cruise> cruise = cruiseService.findAllCruises();
+        List<Cruise> cruise = cruiseService.findAllCurrentCruises();
         final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         boolean isPhotoIncluded = userService.isPhotoSet(currentLogin);
         model.addAttribute("cruises", cruise);
         model.addAttribute("isPhotoIncluded", isPhotoIncluded);
-        logger.info("isPhotoIncluded: " + isPhotoIncluded);
+        return "cruise";
+    }
+
+    @PostMapping("orderByDateASC")
+    public String showAllByDateASC(Model model){
+        logger.info("Ordering date ASC");
+        List<Cruise> cruise = cruiseService.findAllCruisesByDateASC();
+        model.addAttribute("cruises", cruise);
+        final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isPhotoIncluded = userService.isPhotoSet(currentLogin);
+        model.addAttribute("isPhotoIncluded", isPhotoIncluded);
+        return "cruise";
+    }
+
+    @PostMapping("orderByCostASC")
+    public String showAllByCostASC(Model model){
+        logger.info("Ordering cost ASC");
+        List<Cruise> cruise = cruiseService.findAllByCostASC();
+        model.addAttribute("cruises", cruise);
+        final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean isPhotoIncluded = userService.isPhotoSet(currentLogin);
+        model.addAttribute("isPhotoIncluded", isPhotoIncluded);
         return "cruise";
     }
 
     @PostMapping(value = "/makeOrder")
-    public String order(@RequestParam(name = "cruiseid", required = false) Long id){
+    public String order(@RequestParam(name = "cruiseid", required = false) Long id, RedirectAttributes redirectAttributes){
         final String currentLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         orderService.save(id, currentLogin);
-        return "cruise";
+        redirectAttributes.addFlashAttribute("message", "Better pack. The journey of a lifetime soon");
+        return "redirect:/cruise";
     }
 
     @GetMapping(value = "/addCruise")

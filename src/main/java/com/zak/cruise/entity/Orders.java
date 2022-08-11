@@ -1,26 +1,25 @@
 package com.zak.cruise.entity;
 
-import com.zak.cruise.service.impl.MyUserDetails;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Getter
 @Setter
-public class Order {
+public class Orders {
     @Id
     @Column(name = "idstatus")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cruise_id_cruise")
     private Cruise cruise;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "status_id_status")
     private Status status;
 
@@ -28,12 +27,23 @@ public class Order {
     @JoinColumn(name = "user_iduser")
     private User user;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(Cruise cruise, Status status, User user) {
+    public Orders(Cruise cruise, Status status, User user) {
         this.cruise = cruise;
         this.status = status;
         this.user = user;
+    }
+
+    public Orders(Long id, Cruise cruise, Status status, User user) {
+        this.id = id;
+        this.cruise = cruise;
+        this.status = status;
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

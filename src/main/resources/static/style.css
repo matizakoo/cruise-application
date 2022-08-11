@@ -99,6 +99,10 @@ input{
     margin-right: 15%;
     width: 70%;
 }
+td{
+    padding-right: 10px;
+    padding-left: 10px;
+}
 
 .home{
     float: left;

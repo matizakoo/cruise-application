@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -38,6 +39,18 @@ public class CruiseService {
 
     public List<Cruise> findAllCruises() {
         return (List<Cruise>) cruiseRepository.findAll();
+    }
+
+    public List<Cruise> findAllCurrentCruises(){
+        return (List<Cruise>) cruiseRepository.findAllCurrentCruises();
+    }
+
+    public List<Cruise> findAllCruisesByDateASC(){
+        return (List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "date"));
+    }
+
+    public List<Cruise> findAllByCostASC(){
+        return (List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "cost"));
     }
 
     public Cruise getCruiseDetails(Long id){

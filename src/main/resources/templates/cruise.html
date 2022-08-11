@@ -13,9 +13,19 @@
         </div>
         <div class="body">
             <div class="contentoftable">
+                <div style="margin-left: auto; margin-right: auto; text-align: center; padding: 3px">
+                    <span style="color: green;" th:text="${message}"></span>
+                </div>
+                <div style="margin-left: auto; margin-right: auto; text-align: center; padding: 3px">
+                    <form method="post" th:action="@{/orderByDateASC}">
+                        <input type="submit" value="order date asc">
+                    </form>
+                    <form method="post" th:action="@{/orderByCostASC}">
+                        <input type="submit" value="order cost asc">
+                    </form>
+                </div>
                 <table class="cruiselist">
                     <thead>
-
                     </thead>
                     <tbody>
 <!--                    <tr th:if="${cruises.empty}">-->

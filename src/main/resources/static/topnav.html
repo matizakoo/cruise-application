@@ -12,12 +12,15 @@
         <a th:href="@{/logout}">Logout</a>
     </div>
     <div class="basicButton">
-        <a th:href="@{/dawaj}">Cruise</a>
+        <a th:href="@{/cruise}">Cruise</a>
     </div>
     <div th:if="${#request.userPrincipal}" class="basicButton">
         <a th:href="@{/profile}">Profile</a>
     </div>
     <div th:if="${#request.userPrincipal}" class="basicButton">
         <a th:href="@{/addCruise}">Add new cruise</a>
+    </div>
+    <div class="basicButton">
+        <a th:href="@{/orders}">Order list</a>
     </div>
 </div>
