@@ -2,7 +2,9 @@ package com.zak.cruise.service.impl;
 
 import com.zak.cruise.dto.CruiseDTO;
 import com.zak.cruise.entity.Cruise;
+import com.zak.cruise.entity.Orders;
 import com.zak.cruise.repository.CruiseRepository;
+import com.zak.cruise.repository.OrdersRepository;
 import com.zak.cruise.repository.RouteRepository;
 import com.zak.cruise.repository.ShipRepository;
 import org.modelmapper.ModelMapper;
@@ -16,8 +18,7 @@ import org.springframework.validation.FieldError;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CruiseService {
@@ -29,12 +30,15 @@ public class CruiseService {
     @Autowired
     private final ShipRepository shipRepository;
     private final ModelMapper modelMapper;
+    @Autowired
+    private final OrdersRepository ordersRepository;
 
-    public CruiseService(CruiseRepository cruiseRepository, RouteRepository routeRepository, ShipRepository shipRepository, ModelMapper modelMapper) {
+    public CruiseService(CruiseRepository cruiseRepository, RouteRepository routeRepository, ShipRepository shipRepository, ModelMapper modelMapper, OrdersRepository ordersRepository) {
         this.cruiseRepository = cruiseRepository;
         this.routeRepository = routeRepository;
         this.shipRepository = shipRepository;
         this.modelMapper = modelMapper;
+        this.ordersRepository = ordersRepository;
     }
 
     public List<Cruise> findAllCruises() {
@@ -42,15 +46,42 @@ public class CruiseService {
     }
 
     public List<Cruise> findAllCurrentCruises(){
-        return (List<Cruise>) cruiseRepository.findAllCurrentCruises();
+        List<Cruise> cruiseList = cruiseRepository.findAllCurrentCruises();
+        List<Cruise> freeSeatsList = new ArrayList<>();
+        for(Cruise e : cruiseList) {
+            Integer countFreeSeats = ordersRepository.getNumberOfFreeSeats(e.getId());
+            if (countFreeSeats == null)
+                freeSeatsList.add(e);
+            else {
+                if (countFreeSeats < e.getNumberOfSeats()) {
+                    freeSeatsList.add(e);
+                }
+            }
+        }
+        return freeSeatsList;
+    }
+
+    public List<Cruise> findAllFilter(List<Cruise> list){
+        List<Cruise> freeSeatsList = new ArrayList<>();
+        for(Cruise e : list) {
+            Integer countFreeSeats = ordersRepository.getNumberOfFreeSeats(e.getId());
+            if (countFreeSeats == null)
+                freeSeatsList.add(e);
+            else {
+                if (countFreeSeats < e.getNumberOfSeats()) {
+                    freeSeatsList.add(e);
+                }
+            }
+        }
+        return freeSeatsList;
     }
 
     public List<Cruise> findAllCruisesByDateASC(){
-        return (List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "date"));
+        return findAllFilter((List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "date")));
     }
 
     public List<Cruise> findAllByCostASC(){
-        return (List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "cost"));
+        return findAllFilter((List<Cruise>) cruiseRepository.findAll(Sort.by(Sort.Direction.ASC, "cost")));
     }
 
     public Cruise getCruiseDetails(Long id){
