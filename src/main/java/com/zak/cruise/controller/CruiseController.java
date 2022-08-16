@@ -87,13 +87,6 @@ public class CruiseController {
     @PostMapping(value = "/addCruise")
     public String addCruise(@Valid CruiseDTO cruiseDTO, Model model, BindingResult bindingResult){
         logger.info("Creating new cruise");
-//        logger.info("  name : " + cruiseDTO.getNameOfCruise() +
-//                "  date : " + cruiseDTO.getDate() +
-//                "  time : " + cruiseDTO.getTime() +
-//                "  cost : " + cruiseDTO.getCost() +
-//                "  duration : " + cruiseDTO.getDuration() +
-//                "  route : " + cruiseDTO.getRoute() +
-//                "  ship : " + cruiseDTO.getShip());
         cruiseService.addCruiseService(cruiseDTO, bindingResult);
         if(bindingResult.hasErrors()){
             logger.info("Creating new cruise failed");
