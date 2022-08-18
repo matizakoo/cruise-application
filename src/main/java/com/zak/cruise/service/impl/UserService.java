@@ -24,15 +24,12 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-//    private final DelegatingPasswordEncoder passwordEncoder;
-    private final BCryptPasswordEncoder passwordEncoder;
     Logger logger = LoggerFactory.getLogger("Connects with /register");
 
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, /*DelegatingPasswordEncoder*/BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.passwordEncoder = passwordEncoder;
     }
     @Transactional
     public User save(User user){

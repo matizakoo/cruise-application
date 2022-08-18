@@ -79,26 +79,52 @@ class UserValidatorTest {
     void checkEmail(){
         assertTrue(userValidator.checkEmail("tomojgmail@gmail.com"));
     }
-
     @Test
-    void checkTest(){
-        assertTrue(userValidator.checkEmail("tomojgmail@gmail.com"));
-    }
-    @Test
-    void checkTest2(){
-        assertFalse(userValidator.checkEmail("tomojgmail@gmailcom"));
-    }
-    @Test
-    void checkTest3(){
-        assertFalse(userValidator.checkEmail("tomojgmail@gmail."));
-    }
-    @Test
-    void checkTest4(){
+    void checkEmail2(){
         assertFalse(userValidator.checkEmail("@gmail.com"));
     }
     @Test
-    void checkTest5(){
-        assertFalse(userValidator.checkEmail("tomojgmail@"));
+    void checkEmail3(){
+        assertTrue(userValidator.checkEmail(">@3s@@gmail.com"));
     }
+    @Test
+    void checkEmail4(){
+        assertTrue(userValidator.checkEmail("m@m.m"));
+    }
+    @Test
+    void checkEmail5(){
+        assertFalse(userValidator.checkEmail("tomojgmail@gmail"));
+    }
+    @Test
+    void checkPhoneNumber(){assertFalse(userValidator.checkPhoneNumber("421421"));}
+    @Test
+    void checkPhoneNumber2(){assertFalse(userValidator.checkPhoneNumber("sada69"));}
+    @Test
+    void checkPhoneNumber3(){assertTrue(userValidator.checkPhoneNumber("123123123123"));}
+    @Test
+    void checkPhoneNumber4(){assertTrue(userValidator.checkPhoneNumber("+48192325231"));}
+    @Test
+    void checkPhoneNumber5(){assertFalse(userValidator.checkPhoneNumber(null));}
+    @Test
+    void checkDocumentId(){assertFalse(userValidator.checkDocumentId("394521"));}
+    @Test
+    void checkDocumentId2(){assertFalse(userValidator.checkDocumentId("12312"));}
+    @Test
+    void checkDocumentId3(){assertFalse(userValidator.checkDocumentId("hejhyj"));}
+    @Test
+    void checkDocumentId4(){assertFalse(userValidator.checkDocumentId("1231323532124"));}
+    @Test
+    void checkDocumentId5(){assertFalse(userValidator.checkDocumentId("+123412421421"));}
+    @Test
+    void checkZipCode(){assertTrue(userValidator.checkZipCodeFormat("123123"));}
+    @Test
+    void checkZipCode2(){assertFalse(userValidator.checkZipCodeFormat("12-123"));}
+    @Test
+    void checkZipCode3(){assertTrue(userValidator.checkZipCodeFormat("CA123"));}
+    @Test
+    void checkZipCode4(){assertFalse(userValidator.checkZipCodeFormat("Cracov 0-700"));}
+    @Test
+    void checkZipCode5(){assertTrue(userValidator.checkZipCodeFormat("434523"));}
+
 
 }
