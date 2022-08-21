@@ -27,7 +27,7 @@ public class Ship {
     @Column(name = "number_of_ports")
     private int numberOfPorts;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "staff_name_id_staff")
     private Staff staffName;
 

@@ -37,11 +37,11 @@ public class Cruise {
     @Column(name = "duration")
     private int duration;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "route_id_route")
     private Route route;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ship_id_ship")
     private Ship ship;
 
