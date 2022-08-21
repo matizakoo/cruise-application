@@ -2,6 +2,7 @@
     <a th:href="@{/}" class="home">
         HOME
     </a>
+<!--    <span th:text="#{greeting}"></span> CHANGE LANGUAGE CHECK-->
     <div th:if="!${#request.userPrincipal}" class="basicButton">
         <a th:href="@{/register}">Register</a>
     </div>

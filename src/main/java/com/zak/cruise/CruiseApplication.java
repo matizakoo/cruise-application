@@ -13,9 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @SpringBootApplication
@@ -43,4 +48,6 @@ public class CruiseApplication {
 	public ObjectMapper objectMapper(){
 		return new ObjectMapper();
 	}
+
+
 }
