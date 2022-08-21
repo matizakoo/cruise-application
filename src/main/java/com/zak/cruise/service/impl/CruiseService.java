@@ -18,6 +18,8 @@ import org.springframework.validation.FieldError;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.*;
 
 @Service
@@ -63,6 +65,7 @@ public class CruiseService {
 
     public List<Cruise> findAllFilter(List<Cruise> list){
         List<Cruise> freeSeatsList = new ArrayList<>();
+        List<Cruise> sortedByDate = new ArrayList<>();
         for(Cruise e : list) {
             Integer countFreeSeats = ordersRepository.getNumberOfFreeSeats(e.getId());
             if (countFreeSeats == null)
@@ -73,7 +76,11 @@ public class CruiseService {
                 }
             }
         }
-        return freeSeatsList;
+        for(Cruise e : freeSeatsList){
+            if(!e.getDate().isBefore(ChronoLocalDate.from(ZonedDateTime.now())))
+                sortedByDate.add(e);
+        }
+        return sortedByDate;
     }
 
     public List<Cruise> findAllCruisesByDateASC(){

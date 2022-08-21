@@ -5,6 +5,8 @@ import com.zak.cruise.entity.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -18,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ContextConfiguration(classes = CruiseApplication.class, loader = AnnotationConfigContextLoader.class)
+@AutoConfigureTestDatabase
 class OrdersRepositoryTest {
     @Autowired
     private OrdersRepository ordersRepository;
@@ -36,10 +39,10 @@ class OrdersRepositoryTest {
 
     @Test
     void findAll() {
-        cruiseRepository.save(new Cruise("Around the world", LocalDate.of(2000,2,2),
+        Cruise cruise = new Cruise("Around the world", LocalDate.of(2000,2,2),
                 LocalTime.now(),1500,45,54, new Route("Gdansk","Grenlandia"),
-                new Ship(43,"karasie",5,6, new Staff("DruzynaRR"))));
-        userRepository.save(new User());
+                new Ship(43,"karasie",5,6, new Staff("DruzynaRR")));
+        cruiseRepository.save(cruise);
         List<Orders> list = ordersRepository.findAll();
         System.out.println("Czy to null? " + list.toString());
         Assertions.assertThat(list).isNotNull();
