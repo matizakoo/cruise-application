@@ -1,27 +1,27 @@
 <div th:fragment="navbar" class="nav">
-    <a th:href="@{/}" class="home">
+    <a th:href="@{/}" class="home" th:text="#{greeting}">
         HOME
     </a>
 <!--    <span th:text="#{greeting}"></span> CHANGE LANGUAGE CHECK-->
     <div th:if="!${#request.userPrincipal}" class="basicButton">
-        <a th:href="@{/register}">Register</a>
+        <a th:href="@{/register}" th:text="#{register}" >Register</a>
     </div>
     <div th:if="!${#request.userPrincipal}" class="basicButton">
-        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/login}" th:text="#{login}" >Login</a>
     </div>
-    <div th:if="${#request.userPrincipal}" class="basicButton">
-        <a th:href="@{/logout}">Logout</a>
-    </div>
-    <div class="basicButton">
-        <a th:href="@{/cruise}">Cruise</a>
-    </div>
-    <div th:if="${#request.userPrincipal}" class="basicButton">
-        <a th:href="@{/profile}">Profile</a>
-    </div>
-    <div th:if="${#request.userPrincipal}" class="basicButton">
-        <a th:href="@{/addCruise}">Add new cruise</a>
+    <div th:if="${#request.userPrincipal}"  class="basicButton">
+        <a th:href="@{/logout}" th:text="#{logout}">Logout</a>
     </div>
     <div class="basicButton">
-        <a th:href="@{/orders}">Order list</a>
+        <a th:href="@{/cruise}" th:text="#{cruise}">Cruise</a>
+    </div>
+    <div th:if="${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/profile}" th:text="#{profile}">Profile</a>
+    </div>
+    <div th:if="${#request.userPrincipal}" class="basicButton">
+        <a th:href="@{/addCruise}" th:text="#{addnewcruise}">Add new cruise</a>
+    </div>
+    <div class="basicButton" >
+        <a th:href="@{/orders}" th:text="#{orderlist}">Order list</a>
     </div>
 </div>

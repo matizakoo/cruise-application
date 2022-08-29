@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     @Qualifier("myUserDetailsService")
     @Autowired
     UserDetailsService userDetailsService;

@@ -15,16 +15,30 @@
         </div>
         <div class="body">
             <div class="inBody">
-<!--                <span th:text="#{lang.change}"></span>:-->
-<!--                <select id="locales">-->
-<!--                    <option value=""></option>-->
-<!--                    <option value="en" th:text="#{lang.eng}"></option>-->
-<!--                    <option value="pl" th:text="#{lang.pl}"></option>-->
-<!--                </select>-->
+                <div th:fragment="language">
+                    <span th:text="#{lang.change}"></span>:
+                    <select id="locales">
+                    <option value=""></option>
+                    <option value="en" th:text="#{lang.eng}"></option>
+                    <option value="pl" th:text="#{lang.pl}"></option>
+                    </select>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+                </script>
+                    <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("#locales").change(function () {
+                            var selectedOption = $('#locales').val();
+                            if (selectedOption !== ''){
+                                window.location.replace('?lang=' + selectedOption);
+                            }
+                        });
+                    });
+                </script>
+                </div>
             </div>
         </div>
         <div class="footer">
-        
+
         </div>
     </div>
 </body>
