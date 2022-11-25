@@ -28,7 +28,6 @@ UI/UX is build with **Thymeleaf** and **CSS**. Page is multilanguage.
 
 > **Note** Available endpoints are listed in the swagger documentation
 
-![swagger](https://picsum.photos/1000/500)
 
 ## 📺 App preview
 
