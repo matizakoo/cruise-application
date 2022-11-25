@@ -1,13 +1,13 @@
 # cruise-application
 # 💻 Cruise app
 
-| [Technologies](#-stack) | [Notes](#-some-notes) | [Documentation](#-documentation) | [App preview](#-app-preview) | [Envs](#-environment-variables) |
-| ----------------------- | --------------------- | -------------------------------- | ---------------------------- | ------------------------------- |
+| [Technologies](#-stack) | [Notes](#-some-notes) | [App preview](#-app-preview) | [Envs](#-environment-variables) |
+| ----------------------- | --------------------- | ---------------------------- | ------------------------------- |
 
 ## 🔧 Stack
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white)
-![H2]([https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white](https://img.shields.io/badge/-H2%20DATABASE-blue))
+![H2](https://img.shields.io/badge/-H2-9cf)
 
 ## 📄 Some notes
 
@@ -25,9 +25,6 @@ In the application we are able to:
 UI/UX is build with **Thymeleaf** and **CSS**. Page is multilanguage.
 
 ## 🛡 Documentation
-
-> **Note** Available endpoints are listed in the swagger documentation
-
 
 ## 📺 App preview
 
