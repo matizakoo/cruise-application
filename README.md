@@ -36,6 +36,11 @@ UI/UX is build with **Thymeleaf** and **CSS**. Page is multilanguage.
 | ---------------------------------------- | ---------------------------------------------- | ----------------------------------------- |
 | ![home](https://picsum.photos/2000/1002) | ![login form](https://picsum.photos/2000/1003) | ![error](https://picsum.photos/2000/1004) |
 
+<img width="1252" alt="Zrzut ekranu 2022-11-24 o 20 21 26" src="https://user-images.githubusercontent.com/75738398/203934498-663e391f-cdd1-4a8c-a064-a20fb8d16c12.png">
+<img width="1251" alt="Zrzut ekranu 2022-11-24 o 20 21 13" src="https://user-images.githubusercontent.com/75738398/203934509-c9218581-05d8-4fc2-aacb-e11efcf72c3d.png">
+<img width="1253" alt="Zrzut ekranu 2022-11-24 o 20 21 02" src="https://user-images.githubusercontent.com/75738398/203934519-996ddd0b-de4e-4850-ab2b-ed926920c4a8.png">
+
+
 ## 🔒 Environment variables
 
 > **Note** Check out `application.properties` file
