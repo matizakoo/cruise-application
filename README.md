@@ -1,4 +1,3 @@
-# cruise-application
 # 💻 Cruise app
 
 | [Technologies](#-stack) | [Notes](#-some-notes) | [App preview](#-app-preview) | [Envs](#-environment-variables) |
